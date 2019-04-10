@@ -1,0 +1,142 @@
+.header {
+	background-color: #393939;
+}
+
+body {overflow-x:hidden; overflow-y: auto}
+
+
+input[type=text]{
+    width: 4em;
+}
+
+input[type=button] {
+	margin: 3px;
+	margin-right: 2px;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 1em;
+	width: 7em;
+}
+
+input#get_diffuse_color {
+	width: 14em;
+}
+
+input#g{
+	width: 6.5em;
+}
+
+.panelcontent{
+    position: relative;
+    padding: 0.7em;
+    margin: 0em;
+}
+
+#swatch_absorption, #swatch_scattering{
+    position: absolute;
+    top: 0.7em;
+    left: 0.7em;
+}
+
+
+.parameter_label{
+    position: absolute;
+    left: 1em;
+    top: 1em;
+}
+
+.parameter_field{
+    position: absolute;
+    left: 12.5em;
+    top: 0.7em;
+}
+
+
+.parameter_field_wide{
+    position: absolute;
+	width: 18em;
+    left: 12.5em;
+    top: 0.7em;
+}
+
+
+.parameter_label_right{
+    position: absolute;
+	width: 12em;
+    left: 8em;
+    top: 1em;
+}
+
+.parameter_interface{
+    position: relative;
+    height: 8em;
+}
+
+.parameter_interface_top{
+    position: relative;
+    height: 7em;
+}
+
+.parameter_interface_single{
+    position: relative;
+    height: 3.5em;
+}
+
+.parameter_interface_single_padded{
+    position: relative;
+    height: 3em;
+    margin-top: 0.8em;
+}
+
+.swatch {
+    border: 1px solid black;
+	width: 6em;
+	height: 6em;
+    margin: 0em 0em 0em 0em;
+    background-color: #ffffff;
+}
+
+#lamps_in_model_label{
+    position: absolute;
+	width: 12em;
+    left: 1em;
+    top: 1em;
+}
+
+#lamps_in_model{
+    position: absolute;
+	width: 12em;
+    left: 7em;
+    top: 0.8em;
+}
+
+#create_lamp{
+    position: absolute;
+    left: 7.6em;
+    top: 3.8em;
+}
+
+#delete_lamp{
+    position: absolute;
+    left: 15.5em;
+    top: 3.8em;
+}
+
+
+#mapname_button{
+	width: 10em;
+}
+
+#mapname_clear{
+	width: 10em;
+}
+
+
+
+
+#iesname, #mapname, #light_group{
+    width: 9em;
+}
+
+#lamp_type_area, #absorption, #scattering, #index_of_refraction, #step_size, #asymmetry{
+	display: none;
+}

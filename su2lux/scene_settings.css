@@ -1,0 +1,163 @@
+#presets {
+	padding: 1em 1em 0em 1em
+}
+
+#settings_panel {
+	border: 0em solid #eeeeee;
+	margin-top: 1em;
+	padding: 0em;
+}
+
+.header {
+	padding: 0.5em 0em 0.5em 0.5em;
+	cursor: pointer;
+	position: relative;
+	background-color: #bf8040;/*#c67700; /*#d77f00;*/
+	margin: 0.1em 0em;
+}
+
+
+.header2 {
+	cursor: default;
+    margin-top: 0.4em;
+    margin-bottom: 0.8em;
+}
+
+.collapse {
+	margin: 0 0 0 1.5em;
+	padding: 0.6em;
+}
+
+.collapse select{
+	margin: 0 0 0 0em;
+	padding: 0em;
+}
+   
+.nopadding {
+	padding: 0em;
+}
+  
+.collapse2 {
+	padding: 0.6em;
+}
+
+.parameter_interface{
+    position: relative;
+    height: 9em;
+}
+
+.parameter_interface_single{
+    position: relative;
+    height: 2.5em;
+}
+
+.EXR_parameter{
+    position: relative;
+    min-height: 3em;
+}
+
+.singlelinedropdown{
+    position: absolute;
+    top:0em;
+    left: 10em;
+}
+
+.inputfield1{
+    position: absolute;
+    top:0em;
+    left: 10em;
+}
+
+.inputfield1_button{
+    position: absolute;
+    top:0em;
+    left: 32em;
+}
+
+.inputfield2{
+    position: absolute;
+    top: 3em;
+    left: 10em;
+}
+
+.inputfield3{
+    position: absolute;
+    top: 6em;
+    left: 10em;
+}
+
+.inputfield1x{
+    position: absolute;
+    top: 0em;
+    left: 12em;
+}
+
+.inputfield2x{
+    position: absolute;
+    top: 3em;
+    left: 12em;
+}
+
+.inputfield3x{
+    position: absolute;
+    top: 6em;
+    left: 12em;
+}
+
+.label1{
+    position: absolute;
+    top: 0.4em;
+    left: 0em;
+}
+
+.label2{
+    position: absolute;
+    top: 4em;
+    left: 0em;
+}
+
+
+.label3{
+    position: absolute;
+    top: 7em;
+    left: 0em;
+}
+
+#pickfocaldistance{
+	position: absolute;
+	top: 3.7em;
+	left: 23em;
+}
+
+#view{
+    position: relative;
+    top: 1em;
+	left: 0em;
+    padding: 0em 0em 1em 0em;
+}
+
+input[type=button] {
+	margin: 0.3em;
+	margin-right: 0.2em;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 0.85em;
+	width: 8em;
+}
+
+input#divide_by_2, input#multiply_by_2 {
+	width: 5em;
+}
+
+input#reset {
+	width: 14em;
+}
+
+#flip_dim {
+	width: 17em;
+}
+
+
+#environment_light_type, #fleximage_tonemapkernel{
+    margin-bottom: 1em;
+	margin-top: 0.5em;
+}

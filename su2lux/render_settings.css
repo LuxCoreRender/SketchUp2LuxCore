@@ -1,0 +1,173 @@
+#presets {
+	padding: 1em 1em 0em 1em
+}
+
+#settings_panel {
+	border: 0px solid #eeeeee;
+	margin-top: 1em;
+	padding: 0em;
+}
+
+.header {
+	padding: 0.5em 0em 0.5em 0.5em;
+	cursor: pointer;
+	position: relative;
+	background-color: #7c4d38; /*#c67700; /*#d77f00;*/
+	margin: 1px 0em;
+}
+
+
+.header2 {
+	cursor: default;
+    margin-top: 0.4em;
+    margin-bottom: 0.8em;
+}
+
+.collapse {
+	margin: 0 0 0 1.5em;
+	padding: 0.6em;
+}
+   
+.collapse2 {
+	padding: 0.6em;
+}
+
+.parameter_interface{
+    position: relative;
+    height: 9em;
+}
+
+.parameter_interface_single{
+    position: relative;
+    height: 3em;
+}
+
+.sectiondropdown{
+	position: relative;
+	left: 2em;
+}
+
+.singlelinedropdown{
+    position: absolute;
+    top: 0em;
+    left: 10em;
+	padding-bottom: 8em;
+}
+
+.inputfield1{
+    position: absolute;
+    top: 0px;
+    left: 10em;
+	width: 2em;
+}
+
+.inputfield1w{
+    position: absolute;
+    top: 0px;
+    left: 10em;
+	width: 12em;
+}
+
+.inputfield2{
+    position: absolute;
+    top: 3em;
+    left: 10em;
+}
+
+.inputfield3{
+    position: absolute;
+    top: 6em;
+    left: 10em;
+}
+
+.inputfield1x{
+    position: absolute;
+    top: 0em;
+    left: 12em;
+}
+
+.inputfield1xx{
+    position: absolute;
+    top: 0em;
+    left: 15em;
+}
+
+.inputfield1xxx{
+    position: absolute;
+    top: 0em;
+    left: 16em;
+}
+
+.aligned_dropdown{
+    position: absolute;
+    top: 0em;
+    left: 14em;
+}
+
+.inputfield2x{
+    position: absolute;
+    top: 3em;
+    left: 12em;
+}
+
+.inputfield3x{
+    position: absolute;
+    top: 6em;
+    left: 12em;
+}
+
+.label1{
+    position: absolute;
+    top: 0.4em;
+    left: 0em;
+}
+
+.label2{
+    position: absolute;
+    top: 3.5em;
+    left: 0em;
+}
+
+
+.label3{
+    position: absolute;
+    top: 6.5em;
+    left: 0em;
+}
+
+#view{
+    position: relative;
+    top: 0.8em;
+    left: 0em;
+    padding: 0em 0em 1em 0em;
+}
+
+#sppm{
+    display: none;
+}
+
+input[type=button] {
+	margin: 3px;
+	margin-right: 2px;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 0.85em;
+	width: 10em;
+}
+
+input#divide_by_2, input#multiply_by_2 {
+	width: 5em;
+}
+
+iinput#reset {
+	width: 14em;
+}
+
+#flip_dim {
+	width: 17em;
+}
+
+
+#pixelfilter_type, #sampler_lowdisc_pixelsampler, #sampler_type, #sintegrator_type, #accelerator_type, #delete_settings_file{
+    margin-bottom: 1em;
+}
+

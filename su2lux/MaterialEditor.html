@@ -1,0 +1,1180 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>SU2LUX Texture Editor</title>
+
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="MaterialEditor.js"  charset="UTF-8"></script>
+
+<link href="common.css" type="text/css" rel="stylesheet">
+<link href="MaterialEditor.css" type="text/css" rel="stylesheet">
+ 
+</head>
+<body>
+	<div id="settings_panel">
+        
+		<div id="material_management" name="materiallist">
+			<label for="material_name2">Material name</label>
+			<select id="material_name">
+				<option value="bogus">not initialized</option>
+			</select>
+			<!-- <br>
+			<input type="button" id="preset_load" value="Load">
+			<input type="button" id="preset_save" value="Save">
+			<input type="button" id="preset_delete" value="Delete"> /-->
+		</div>
+        
+		<p class="header2">Preview</p>
+        <div class="panelcontent collapse" id="preview">
+            <input type="button" id="update_material_preview" value="refresh">
+            <select id="previewsize">
+                <option value="100">small</option>
+                <option value="140">medium</option>
+                <option value="200">large</option>
+                <option value="270">extra large</option>
+            </select>
+            <select id="previewtime">
+                <option value="1">1 second</option>
+                <option value="2">2 seconds</option>
+                <option value="4">4 seconds</option>
+                <option value="8">8 seconds</option>
+                <option value="16">16 seconds</option>
+                <option value="30">30 seconds</option>
+                <option value="60">1 minute</option>
+                <option value="120">2 minutes</option>
+            </select>
+            <img src="empty_preview.png" id="preview_image" height=100>
+		</div>
+
+        <p class="header2">Material type</p>
+            <div id="material_type">
+                <select id="type">
+                    <option value="matte">Matte</option>
+                    <option value="glossy">Glossy</option>
+                    <option value="glass">Glass</option>
+                    <option value="glass2">Glass (volumetric)</option>
+                    <option value="roughglass">Rough glass</option>
+                    <!-- <option value="metal">Metal</option> -->
+                    <option value="metal2">Metal</option>
+                    <option value="mirror">Mirror</option>
+                    <!-- <option value="shinymetal">Shiny Metal</option> -->
+                    <option value="mattetranslucent">Matte translucent</option>
+                    <option value="glossytranslucent">Glossy translucent</option>
+                    <option value="carpaint">Car paint</option>
+                    <option value="cloth">Cloth</option>
+                    <option value="velvet">Velvet</option>
+                    <option value="light">Light</option>
+                    <option value="mix">Mix</option>
+                    <option value="portal">Portal</option>
+                    <option value="null">Null</option>
+                </select>
+    
+            <div id="carpaints" class="carpaint">
+                <p class="header2">Car paint type</p>
+                <div class="panelcontent collapse">
+                    <label for="carpaint_name">Name</label>
+                    <select id="carpaint_name">
+                        <option value="">Custom</option>
+                        <option value="ford f8">Ford F8</option>
+                        <option value="polaris silber">Polaris Silber</option>
+                        <option value="opel titan">Opel Titan</option>
+                        <option value="bmw339">BMW 339</option>
+                        <option value="2k acrylack">Acrylack</option>
+                        <option value="white">White</option>
+                        <option value="blue">Blue</option>
+                        <option value="blue matte">Blue Matte</option>
+                    </select>
+                </div> <!-- END panelcontent -->
+            </div> <!-- END carpaint -->
+			
+            <div id="diffuse" class="matte glossy glossytranslucent velvet carpaint ">
+                <p class="header2">Diffuse Color</p>
+                <div class="panelcontent collapse">
+                    <table id="swatch_diffuse"><tr><td id="diffuse_swatch" class="swatch"></td></tr></table>
+                    <!--  <label for="kd_R" class="kdr">Red</label><input type='text' id="kd_R" size="6" class="kdrvalue">
+                    <label for="kd_G" class="kdg">Green</label><input type='text' id="kd_G" size="6" class="kdgvalue">
+                    <label for="kd_B" class="kdb">Blue</label><input type='text' id="kd_B" size="6" class="kdbvalue"> -->
+                    
+                    <div class="texture_area_swatchfield">
+                    <!-- <label for="kd_texturetype" class="tex_label">Texture</label> -->
+                    <select id="kd_texturetype" class="tex_dropdown">
+						<option value="none">no texture</option>
+						<option value="imagemap">image map</option>
+						<option value="procedural">procedural texture</option>
+						<option value="sketchup">SketchUp texture</option>
+                    </select>
+                    
+                    <span class="sketchup">
+                        <div class="colorizesection"><input type="checkbox" class="kd_imagemap_colorize" name="kd_imagemap_colorize">
+                        <label for="multibounce">Multiply</label></div>
+                    </span>
+					<span class="procedural">
+                        <div class="proctextsection">
+							<select id="kd_imagemap_proctex" class="proctex_dropdown proctex_dropdown_color">
+								<option value="noProcText">no textures defined</option>
+							</select>
+						</div>
+					</span>
+					<span class="imagemap">
+						<div id="kd_imgmapname" class="tex_path">&nbsp;</div>
+                        <input type="button" id="kd_browse_map" value="load image" class="tex_loadbutton">
+                        <div class="colorizesection"><input type="checkbox" class="kd_imagemap_colorize" name="kd_imagemap_colorize">
+                        <label for="multibounce">Multiply</label></div>
+                    </span>
+                    </div>
+                </div> <!-- END panelcontent -->
+			</div> <!-- END diffuse -->
+            <div id="cloth" class="cloth">
+                <p class="header2">Cloth</p>
+                <div class="panelcontent collapse">
+                    <div class="parameter_interface">
+                        <div id="clothtype">
+                        <label for="cl_type">Cloth type</label>
+                        <select id="cl_type">
+                            <option value="cotton_twill">Cotton Twill</option>
+                            <option value="denim">Denim</option>
+                            <option value="polyester_lining_cloth">Polyester Lining Cloth</option>
+                            <option value="silk_charmeuse">Silk, Charmeuse</option>
+                            <option value="silk_shantung">Silk, Shantung</option>
+                            <option value="wool_gabardine">Wool, Gabardine</option>
+                        </select>
+                        </div>
+                        <div id="clothrepeatx">
+                        <label for="cl_repeatu" class="parameter_label">Number of threads, x</label>
+                        <input type='text' id="cl_repeatu" class="parameter_field_cloth">
+                        </div>
+                        <div id="clothrepeaty">
+                        <label for="cl_repeatv" class="parameter_label">Number of threads, y</label>
+                        <input type='text' id="cl_repeatv" class="parameter_field_cloth">
+                        </div>
+                    </div>
+                    <br>
+                    Warp diffuse
+                    <br>
+                    <div class="parameter_interface">
+                        <table id="swatch_cloth_cl1kd_R">
+                        <tr><td id="cl1kd_swatch" class="swatch"></td></tr>
+                        </table>
+                        <!-- <label for="cl1kd_R" class="kdr">Red</label><input type='text' id="cl1kd_R" size="6" class="kdrvalue">
+                        <label for="cl1kd_G" class="kdg">Green</label><input type='text' id="cl1kd_G" size="6" class="kdgvalue">
+                        <label for="cl1kd_B" class="kdb">Blue</label><input type='text' id="cl1kd_B" size="6" class="kdbvalue"> -->
+                        
+                        <div class="texture_area_swatchfield">
+                        <!-- <label for="cl1kd_texturetype" class="tex_label">Texture</label> -->
+                        <select id="cl1kd_texturetype" class="tex_dropdown" name="cl1kd">
+                            <option value="none">no texture</option>
+                            <option value="imagemap">image map</option>
+                            <option value="procedural">procedural texture</option>
+                            <option value="sketchup">SketchUp texture</option>
+                        </select>
+                        <span class="sketchup">
+                            <div class="colorizesection"><input type="checkbox" class="cl1kd_imagemap_colorize" name="cl1kd_imagemap_colorize">
+                            <label for="multibounce">Multiply</label></div>
+                        </span>
+						<span class="procedural">
+							<div class="proctextsection">
+								<select id="cl1kd_imagemap_proctex" class="proctex_dropdown proctex_dropdown_color">
+									<option value="noProcText">no textures defined</option>
+								</select>
+							</div>
+						</span>
+                        <span class="imagemap">
+                            <div id="cl1kd_imgmapname" class="tex_path">&nbsp;</div>
+                            <input type="button" id="cl1kd_browse_map" value="load image" class="tex_loadbutton">
+                            <div class="colorizesection"><input type="checkbox" class="cl1kd_imagemap_colorize" name="cl1kd_imagemap_colorize">
+                            <label for="multibounce">Multiply</label></div>
+                        </span>
+                        </div>
+                    </div>
+                    Warp specular reflection
+                    <br>
+                    <div class="parameter_interface">
+                        <table id="swatch_cloth_cl1kd_S">
+                        <tr><td id="cl1ks_swatch" class="swatch" ></td></tr>
+                        </table>
+                        <!-- <label for="cl1ks_R" class="kdr">Red</label><input type='text' id="cl1ks_R" size="6" class="kdrvalue">
+                        <label for="cl1ks_G" class="kdg">Green</label><input type='text' id="cl1ks_G" size="6" class="kdgvalue">
+                        <label for="cl1ks_B" class="kdb">Blue</label><input type='text' id="cl1ks_B" size="6" class="kdbvalue"> -->
+                        
+                        <div class="texture_area_swatchfield">
+                        <!-- <label for="cl1ks_texturetype" class="tex_label">Texture</label> -->
+                        <select id="cl1ks_texturetype" class="tex_dropdown" name="cl1ks">
+                            <option value="none">no texture</option>
+                            <option value="imagemap">image map</option>
+                            <option value="procedural">procedural texture</option>
+                            <option value="sketchup">SketchUp texture</option>
+                        </select>
+                        <span class="sketchup">
+                            <div class="colorizesection"><input type="checkbox" class="cl1ks_imagemap_colorize" name="cl1ks_imagemap_colorize">
+                            <label for="multibounce">Multiply</label></div>
+                        </span>
+						<span class="procedural">
+							<div class="proctextsection">
+								<select id="cl1ks_imagemap_proctex" class="proctex_dropdown proctex_dropdown_color">
+									<option value="noProcText">no textures defined</option>
+								</select>
+							</div>
+						</span>
+                        <span class="imagemap">
+                            <div id="cl1ks_imgmapname" class="tex_path">&nbsp;</div>
+                            <input type="button" id="cl1ks_browse_map" value="load image" class="tex_loadbutton">
+                            <div class="colorizesection"><input type="checkbox" class="cl1ks_imagemap_colorize" name="cl1ks_imagemap_colorize">
+                            <label for="multibounce">Multiply</label></div>
+                        </span>
+                        </div>
+                    </div>
+                    <br>
+                    Weft diffuse
+                    <br>
+                    <div class="parameter_interface">
+                        <table id="swatch_cloth_cl2kd_R">
+                        <tr><td id="cl2kd_swatch" class="swatch" ></td></tr>
+                        </table>
+                        <!-- <label for="cl2kd_R" class="kdr">Red</label><input type='text' id="cl2kd_R" size="6" class="kdrvalue">
+                        <label for="cl2kd_G" class="kdg">Green</label><input type='text' id="cl2kd_G" size="6" class="kdgvalue">
+                        <label for="cl2kd_B" class="kdb">Blue</label><input type='text' id="cl2kd_B" size="6" class="kdbvalue"> -->
+                        
+                        <div class="texture_area_swatchfield">
+                            <!-- <label for="cl2kd_texturetype" class="tex_label">Texture</label> -->
+                            <select id="cl2kd_texturetype" class="tex_dropdown" name="cl2kd">
+                                <option value="none">no texture</option>
+                                <option value="imagemap">image map</option>
+                                <option value="procedural">procedural texture</option>
+                                <option value="sketchup">SketchUp texture</option>
+                            </select>
+                            <span class="sketchup">
+                                <div class="colorizesection"><input type="checkbox" class="cl2kd_imagemap_colorize" name="cl2kd_imagemap_colorize">
+                                <label for="multibounce">Multiply</label></div>
+                            </span>
+						<span class="procedural">
+							<div class="proctextsection">
+								<select id="cl2kd_imagemap_proctex" class="proctex_dropdown proctex_dropdown_color">
+									<option value="noProcText">no textures defined</option>
+								</select>
+							</div>
+						</span>
+                            <span class="imagemap">
+                                <div id="cl2kd_imgmapname" class="tex_path">&nbsp;</div>
+                                <input type="button" id="cl2kd_browse_map" value="load image" class="tex_loadbutton">
+                                <div class="colorizesection"><input type="checkbox" class="cl2kd_imagemap_colorize" name="cl2kd_imagemap_colorize">
+                                <label for="multibounce">Multiply</label></div>
+                            </span>
+                        </div>
+                    </div>
+                    Weft specular reflection
+                    <br>
+                    <div class="parameter_interface">
+                        <table id="swatch_cloth_cl2kd_S">
+                        <tr><td id="cl2ks_swatch" class="swatch" ></td></tr>
+                        </table>
+                        <!-- <label for="cl2ks_R" class="kdr">Red</label><input type='text' id="cl2ks_R" size="6" class="kdrvalue">
+                        <label for="cl2ks_G" class="kdg">Green</label><input type='text' id="cl2ks_G" size="6" class="kdgvalue">
+                        <label for="cl2ks_B" class="kdb">Blue</label><input type='text' id="cl2ks_B" size="6" class="kdbvalue"> -->
+                        
+                        <div class="texture_area_swatchfield">
+                        <!-- <label for="cl2ks_texturetype" class="tex_label">Texture</label> -->
+                        <select id="cl2ks_texturetype" class="tex_dropdown" name="cl2ks">
+                            <option value="none">no texture</option>
+                            <option value="imagemap">image map</option>
+                            <option value="procedural">procedural texture</option>
+                            <option value="sketchup">SketchUp texture</option>
+                        </select>
+                        <span class="sketchup">
+                            <div class="colorizesection"><input type="checkbox" class="cl2ks_imagemap_colorize" name="cl2ks_imagemap_colorize">
+                            <label for="multibounce">Multiply</label></div>
+                        </span>
+						<span class="procedural">
+							<div class="proctextsection">
+								<select id="cl2ks_imagemap_proctex" class="proctex_dropdown proctex_dropdown_color">
+									<option value="noProcText">no textures defined</option>
+								</select>
+							</div>
+						</span>
+                        <span class="imagemap">
+                            <div id="cl2ks_imgmapname" class="tex_path">&nbsp;</div>
+                            <input type="button" id="cl2ks_browse_map" value="load image" class="tex_loadbutton">
+                            <div class="colorizesection"><input type="checkbox" class="cl2ks_imagemap_colorize" name="cl2ks_imagemap_colorize">
+                            <label for="multibounce">Multiply</label></div>
+                        </span>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- end cloth -->
+            
+            
+			<div id="specular" class="glossy shinymetal glossytranslucent">
+				<p class="header2">Specular Reflections</p>
+                <div class="panelcontent collapse">
+                    
+                    <label for="specular_scheme" class="specular_label">Specular definition: </label>
+                    <select id="specular_scheme" class="specular_field">
+                        <option value="specular_scheme_color">Color</option>
+                        <option value="specular_scheme_IOR">IOR, custom</option>
+                        <option value="specular_scheme_preset">IOR, preset</option>
+                    </select>
+                    
+                    <div id="specular_scheme_color" class="parameter_interface">
+                        <table id="swatch_specular">
+                        <tr><td id="specular_swatch" class="swatch" ></td></tr>
+                        </table>
+                        <!-- <label for="ks_R" class="kdr">Red</label><input type='text' id="ks_R" size="6" class="kdrvalue">
+                        <label for="ks_G" class="kdg">Green</label><input type='text' id="ks_G" size="6" class="kdgvalue">
+                        <label for="ks_B" class="kdb">Blue</label><input type='text' id="ks_B" size="6" class="kdbvalue"> -->
+                        
+                        <div class="texture_area_swatchfield">
+                        <!-- <label for="ks_texturetype" class="tex_label">Texture</label> -->
+                        <select id="ks_texturetype" class="tex_dropdown" name="ks">
+                                    <option value="none">no texture</option>
+                                    <option value="imagemap">image map</option>
+                                    <option value="procedural">procedural texture</option>
+                                    <option value="sketchup">SketchUp texture</option>
+                        </select>
+                        <span class="sketchup">
+                            <div class="colorizesection"><input type="checkbox" class="ks_imagemap_colorize" name="ks_imagemap_colorize">
+                            <label for="multibounce">Multiply</label></div>
+                        </span>
+						<span class="procedural">
+							<div class="proctextsection">
+								<select id="ks_imagemap_proctex" class="proctex_dropdown proctex_dropdown_color">
+									<option value="noProcText">no textures defined</option>
+								</select>
+							</div>
+						</span>
+                        <span class="imagemap">
+                            <div id="ks_imgmapname" class="tex_path">&nbsp;</div>
+                            <input type="button" id="ks_browse_map" value="load image" class="tex_loadbutton">
+                            <div class="colorizesection"><input type="checkbox" class="ks_imagemap_colorize" name="ks_imagemap_colorize">
+                            <label for="multibounce">Multiply</label></div>
+                        </span>
+                        </div>
+                    </div>
+                    
+                    <div id="specular_scheme_IOR" class="parameter_interface_specular">
+                        <div id="spec_IOR_interface">
+                        <label for="spec_IOR" class="spec_IOR">Index of refraction: </label><input type='text' id="spec_IOR" class="spec_IORvalue">
+                        </div>
+                        
+                        <div class="texture_area_swatchfield_specular">
+                            <!-- <label for="spec_IOR_texturetype" class="tex_label">Texture</label> -->
+                            <select id="spec_IOR_texturetype" class="tex_dropdown" name="spec_IOR">
+                                    <option value="none">no texture</option>
+                                    <option value="imagemap">image map</option>
+                                    <option value="procedural">procedural texture</option>
+                                    <option value="sketchup">SketchUp texture</option>
+                            </select>
+                            <span class="sketchup">
+                                <div class="colorizesection"><input type="checkbox" class="spec_IOR_imagemap_colorize" name="spec_IOR_imagemap_colorize">
+                                <label for="multibounce">Multiply</label></div>
+                            </span>
+						<span class="procedural">
+							<div class="proctextsection">
+								<select id="spec_IOR_imagemap_proctex" class="proctex_dropdown proctex_dropdown_float">
+									<option value="noProcText">no textures defined</option>
+								</select>
+							</div>
+						</span>
+                            <span class="imagemap">
+                                <div id="spec_IOR_imgmapname" class="tex_path">&nbsp;</div>
+                                <input type="button" id="spec_IOR_browse_map" value="load image" class="tex_loadbutton">
+                                <div class="colorizesection"><input type="checkbox" class="spec_IOR_imagemap_colorize" name="spec_IOR_imagemap_colorize">
+                                <label for="multibounce">Multiply</label></div>
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <div id="specular_scheme_preset" class="parameter_interface_single">
+                        <div id="spec_IOR_interface">
+                            <label for="specular_preset" class="specular_label">Material: </label>
+                            <select id="specular_preset" class="specular_field">
+                                <option value="1.360001">Acetone</option>
+                                <option value="1.000293">Air</option>
+                                <option value="1.360002">Alcohol</option>
+                                <option value="1.345000">Beer</option>
+                                <option value="2.000000">Crystal</option>
+                                <option value="2.417000">Diamond</option>
+                                <option value="1.520000">Glass</option>
+                                <option value="1.474000">Glass, Pyrex</option>
+                                <option value="1.473000">Glycerin</option>
+                                <option value="1.494000">Honey</option>
+                                <option value="1.309000">Ice</option>
+                                <option value="1.600000">Jade</option>
+                                <option value="1.350000">Milk</option>
+                                <option value="1.530001">Nylon</option>
+                                <option value="1.530002">Pearl</option>
+                                <option value="1.580000">Plastic</option>
+                                <option value="1.488000">Plexiglass</option>
+                                <option value="1.516000">Salt</option>
+                                <option value="1.757000">Sapphire</option>
+                                <option value="1.340000">Soft drinks</option>
+                                <option value="1.607000">Topaz</option>
+                                <option value="1.000000">Vacuum</option>
+                                <option value="1.470000">Vegetable oil</option>
+                                <option value="1.363000">Vodka</option>
+                                <option value="1.332830">Water</option>
+                            </select>
+                            <div id="spec_IOR_preset_value">value goes here</div>
+                        </div>
+                    </div>
+                    
+                    
+                    
+                </div> <!-- END panelcontent -->
+			</div> <!-- END specular -->
+            
+            
+            
+            
+            <div id="mix" class="mix">
+                <p class="header2">Mix</p>
+                <div class="panelcontent collapse">
+                    <div class="parameter_interface_mix">
+                        
+                        <label for="material_list1" class="mixmat1">Material 1</label>
+                        <select id="material_list1" class="mixmatlist1">
+                            <option value="bogus">not initialized</option>
+                        </select><br />
+                        <label for="material_list2" class="mixmat2">Material 2</label>
+                        <select id="material_list2" class="mixmatlist2">
+                            <option value="bogus">not initialized</option>
+                        </select>
+                        
+                        <div class="texture_area_mix">
+                            <label for="mx_texturetype" id="mixtypes_label">Mix type</label>
+                            <select id="mx_texturetype" class="mixtypes_matlist">
+                                <option value="none">no texture</option>
+                                <option value="imagemap">image map</option>
+                                <option value="procedural">procedural texture</option>
+                                <option value="sketchup">SketchUp texture</option>
+                            </select>
+                            <span class="none">
+                                <label for="mix_uniform" class="mix_uniform_label">Material 1 percentage</label>
+                                <input type='text' id="mix_uniform" class="mix_uniform_field" size="4">
+                            </span>
+                            <span class="sketchup">
+                                &nbsp;
+                            </span>
+						<span class="procedural">
+							<div class="proctextsection">
+								<select id="mx_imagemap_proctex" class="proctex_dropdown proctex_dropdown_float">
+									<option value="noProcText">no textures defined</option>
+								</select>
+							</div>
+						</span>
+                            <span class="imagemap">
+                                <div id="mx_imgmapname">&nbsp;</div>
+                                <input type="button" id="mx_browse_map" value="Load image">
+                            </span>
+                        </div>
+                    </div>
+                </div> <!-- end panelcontent -->
+			</div> <!-- end mixmaterial -->
+            
+            <div id="transmission" class="glass roughglass mattetranslucent glossytranslucent">
+				<p class="header2">Transmission</p>
+                <div class="panelcontent collapse">
+                    <table id="swatch_transmission">
+                        <tr><td id="transmission_swatch" class="swatch" ></td></tr>
+                    </table>
+                    
+                    <!-- <label for="kt_R" class="kdr">Red</label><input type='text' id="kt_R" size="6" class="kdrvalue">
+                    <label for="kt_G" class="kdg">Green</label><input type='text' id="kt_G" size="6" class="kdgvalue">
+                    <label for="kt_B" class="kdb">Blue</label><input type='text' id="kt_B" size="6" class="kdbvalue"> -->
+                        
+                        <div class="texture_area_swatchfield">
+                        <!-- <label for="kt_texturetype" class="tex_label">Texture</label> -->
+                        <select id="kt_texturetype" class="tex_dropdown">
+                                    <option value="none">no texture</option>
+                                    <option value="imagemap">image map</option>
+                                    <option value="procedural">procedural texture</option>
+                                    <option value="sketchup">SketchUp texture</option>
+                        </select>
+                        <span class="imagemap">
+                            <div id="kt_imgmapname" class="tex_path">&nbsp;</div>
+                            <input type="button" id="kt_browse_map" value="load image" class="tex_loadbutton">
+                        </span>
+                    </div>
+                </div> <!-- END panelcontent -->
+			</div> <!-- END transmission -->
+            
+			<div id="reflection" class="glass roughglass mirror shinymetal mattetranslucent">
+                <p class="header2">Reflection</p>
+                <div class="panelcontent collapse">
+                    <table id="swatch_reflection">
+                        <tr><td id="reflection_swatch" class="swatch" ></td></tr>
+                    </table>
+                    
+                    <!-- <label for="kr_R" class="kdr">Red</label><input type='text' id="kr_R" size="6" class="kdrvalue">
+                    <label for="kr_G" class="kdg">Green</label><input type='text' id="kr_G" size="6" class="kdgvalue">
+                    <label for="kr_B" class="kdb">Blue</label><input type='text' id="kr_B" size="6" class="kdbvalue"> -->
+                    
+                    <div class="texture_area_swatchfield">
+                        <!-- <label for="kr_texturetype" class="tex_label">Texture</label> -->
+                        <select id="kr_texturetype" class="tex_dropdown">
+                            <option value="none">None</option>
+                            <option value="imagemap">image map</option>
+                            <option value="procedural">procedural texture</option>
+                            <option value="sketchup">SketchUp texture</option>
+                        </select>
+                        <span class="imagemap">
+                            <div id="kr_imgmapname" class="tex_path">&nbsp;</div>
+                            <input type="button" id="kr_browse_map" value="load image" class="tex_loadbutton">
+                        </span>
+                    </div>
+
+                </div> <!-- END panelcontent -->
+			</div> <!-- END reflection -->
+			<!-- <div id="Oren-Nayar" class="matte mattetranslucent">
+				<p class="header2">Oren-Nayar</p>
+				<label for="matte_sigma">Sigma</label>
+				<input type='text' id="matte_sigma" size="6">
+				<label for="matte_sigma_texturetype">Texture</label>
+				<select id="matte_sigma_texturetype">
+					<option value="none">no texture</option>
+					<option value="sketchup">SketchUp texture</option>
+					<option value="imagemap">image map</option>
+				</select>
+				<span class="imagemap">
+                    <div id="matte_sigma_imgmapname" class="imgmapname">&nbsp;</div>
+					<input type="button" id="matte_sigma_browse_map" value="load image">
+				</span> 
+			</div>  -->
+            
+			<div id="nk" class="metal">
+				<p class="header2">Metal type</p>
+                <div class="panelcontent">
+                    <label for="nk_preset">Name </label>
+                    <select id="nk_preset">
+                        <option value="aluminium">Aluminium</option>
+                        <option value="amorphous carbon">Amorphous carbon</option>
+                        <option value="copper">Copper</option>
+                        <option value="gold">Gold</option>
+                        <option value="silver">Silver</option>
+                    </select>
+                </div>
+			</div> <!-- END metal -->
+            
+			<div id="metal2_nk" class="metal2">
+				<p class="header2">Metal type</p>
+                <div class="panelcontent collapse">
+                    <label for="metal2_preset">Name </label>
+                    <select id="metal2_preset">
+                        <option value="custom">custom</option>
+                        <option value="aluminium">Aluminium</option>
+                        <option value="amorphous carbon">Amorphous carbon</option>
+                        <option value="copper">Copper</option>
+                        <option value="gold">Gold</option>
+                        <option value="silver">Silver</option>
+                    </select>
+                    
+                    <span class="metal2_custom">
+                        <div id="metal2_color">
+                            <table id="swatch_metal2"><tr><td id="metal2_swatch" class="swatch" ></td></tr></table>
+                            <!-- <label for="km2_R" class="kdr">Red</label><input type='text' id="km2_R" size="6" class="kdrvalue">
+                            <label for="km2_G" class="kdg">Green</label><input type='text' id="km2_G" size="6" class="kdgvalue">
+                            <label for="km2_B" class="kdb">Blue</label><input type='text' id="km2_B" size="6" class="kdbvalue"> -->
+                            
+                            <div class="texture_area_swatchfield">
+                                <!-- <label for="km2_texturetype" class="tex_label">Texture</label> -->
+                                <select id="km2_texturetype" class="tex_dropdown">
+                                    <option value="none">no texture</option>
+                                    <option value="imagemap">image map</option>
+                                    <option value="procedural">procedural texture</option>
+                                    <option value="sketchup">SketchUp texture</option>
+                                </select>
+                                
+                                <span class="sketchup">
+                                    <div class="colorizesection"><input type="checkbox" class="km2_imagemap_colorize" name="km2_imagemap_colorize">
+                                    <label for="multibounce">Multiply</label></div>
+                                </span>
+								<span class="procedural">
+									<div class="proctextsection">
+										<select id="km2_imagemap_proctex" class="proctex_dropdown proctex_dropdown_fresnel">
+											<option value="noProcText">no textures defined</option>
+										</select>
+									</div>
+								</span>
+                                <span class="imagemap">
+                                    <div id="km2_imgmapname" class="tex_path">&nbsp;</div>
+                                    <input type="button" id="km2_browse_map" value="load image" class="tex_loadbutton">
+                                    <div class="colorizesection"><input type="checkbox" class="km2_imagemap_colorize" name="km2_imagemap_colorize">
+                                    <label for="multibounce">Multiply</label></div>
+                                </span>
+                            </div>
+                        </div>
+                    </span>
+                </div> <!-- end panelcontent -->
+			</div> <!-- END metal -->
+            
+            <div id="aa" class="matte glossy glossytranslucent glass metal2 mirror mattetranslucent glossytranslucent carpaint cloth velvet">
+				<p class="header2">Alpha transparency</p>
+                <div class="panelcontent collapse">
+                    <input type="checkbox" id="use_auto_alpha" class="margin_bottom"><label for="use_auto_alpha"> Use transparency</label>
+                    <div class="collapse_check">
+                        <div class="parameter_interface_autoalpha">
+                            <div class="texture_area_autoalpha">
+                                <!-- <label for="aa_texturetype" class="tex_label">Texture</label> -->
+                                <select id="aa_texturetype" class="tex_dropdown">
+                                    <option value="sketchupalpha">SketchUp texture alpha</option>
+                                    <option value="imagealpha">image map alpha</option>
+                                    <option value="imagecolor">image map color</option>
+                                </select>
+                                <span class="imagemap" id="autoalpha_image_field">
+                                    <div id="aa_imgmapname" class="tex_path">&nbsp; temporary text</div>
+                                    <input type="button" id="aa_browse_map" value="load image" class="tex_loadbutton">
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+			<div id="exponent_div" class="glossy metal metal2 roughglass shinymetal glossytranslucent">
+				<p class="header2">Glossiness</p>
+                <div class="panelcontent collapse">
+                <div class="parameter_interface">
+                    <label for="u_exponent" class="parameter_label">U Exponent</label>
+                    <input type='text' id="u_exponent" class="parameter_field">
+                    <div class="texture_area">
+                        <!-- <label for="u_exponent_texturetype" class="tex_label">Texture</label> -->
+                        <select id="u_exponent_texturetype" class="tex_dropdown">
+                            <option value="none">no texture</option>
+                            <option value="imagemap">image map</option>
+                            <option value="procedural">procedural texture</option>
+                            <option value="sketchup">SketchUp texture</option>
+                        </select>
+                        <span class="imagemap">
+                            <div id="u_exponent_imgmapname" class="tex_path">&nbsp;</div>
+                            <input type="button" id="u_exponent_browse_map" value="load image" class="tex_loadbutton">
+                        </span>
+						<span class="procedural">
+							<div class="proctextsection">
+								<select id="u_exponent_imagemap_proctex" class="proctex_dropdown proctex_dropdown_float">
+									<option value="noProcText">no textures defined</option>
+								</select>
+							</div>
+						</span>
+                    </div>
+                </div>
+                <div class="parameter_interface">
+                    <label for="v_exponent" class="parameter_label">V Exponent</label>
+                    <input type='text' id="v_exponent" class="parameter_field">
+                    
+                    <div class="texture_area">
+                        <!-- <label for="v_exponent_texturetype" class="tex_label">Texture</label> -->
+                        <select id="v_exponent_texturetype" class="tex_dropdown">
+                            <option value="none">no texture</option>
+                            <option value="imagemap">image map</option>
+                            <option value="procedural">procedural texture</option>
+                            <option value="sketchup">SketchUp texture</option>
+                        </select>
+                        <span class="imagemap">
+                            <div id="v_exponent_imgmapname" class="tex_path">&nbsp;</div>
+                            <input type="button" id="v_exponent_browse_map" value="load image" class="tex_loadbutton">
+                        </span>
+						<span class="procedural">
+							<div class="proctextsection">
+								<select id="v_exponent_imagemap_proctex" class="proctex_dropdown proctex_dropdown_float">
+									<option value="noProcText">no textures defined</option>
+								</select>
+							</div>
+						</span>
+                    </div>
+                </div>
+                </div><!-- end panelcontent -->
+			</div> <!-- END glossiness / exponent -->
+            
+			<div id="ior" class="glass roughglass">
+				<p class="header2">Index of refraction</p>
+                <div class="panelcontent collapse" id="IOR_interface">
+                    <div class="parameter_interface">
+                        <label for="IOR" class="parameter_label">Value</label>
+                        <input type='text' id="IOR_index" class="parameter_field">
+                            
+                        <div class="texture_area">
+                            <!-- <label for="IOR_index_texturetype" class="tex_label">Texture</label> -->
+                            <select id="IOR_index_texturetype" class="tex_dropdown">
+                                <option value="none">no texture</option>
+                                <option value="imagemap">image map</option>
+                                <option value="procedural">procedural texture</option>
+                                <option value="sketchup">SketchUp texture</option>
+                            </select>
+                            <span class="imagemap">
+                                <div id="IOR_index_imgmapname" class="tex_path">&nbsp;</div>
+                                <input type="button" id="IOR_index_browse_map" value="load image" class="tex_loadbutton">
+                            </span>
+							<span class="procedural">
+								<div class="proctextsection">
+									<select id="IOR_index_imagemap_proctex" class="proctex_dropdown proctex_dropdown_float">
+										<option value="noProcText">no textures defined</option>
+									</select>
+								</div>
+							</span>
+                        </div>
+                        
+                    </div>
+                </div> <!-- end panelcontent -->
+			</div> <!-- END ior-->
+            <div id="architectural_glass" class="glass">
+                <div class="panelcontent collapse" id="use_architectural">
+				<input type="checkbox" id="use_architectural">
+				<label for="use_architectural">Architectural (no refraction)</label>
+                </div>
+            </div>
+			
+			
+			<div id="volume" class="glossy glossytranslucent glass glass2 metal2 mirror mattetranslucent glossytranslucent carpaint cloth velvet null">
+				<p class="header2">Volume</p>
+                <div class="panelcontent collapse">
+					<div class="parameter_interface_single">
+						<label for="volume_interior">Interior </label>
+						<select id="volume_interior" class="parameter_field">
+							<option value="default">default</option>
+						</select>
+					</div>
+					<div class="parameter_interface_single">
+						<label for="volume_exterior">Exterior </label>
+						<select id="volume_exterior" class="parameter_field">
+							<option value="default">default</option>
+						</select>
+					</div>
+                </div>
+			</div> <!-- END volume -->
+            
+            
+			<div id="asperity" class="glossy glossytranslucent">
+                <p class="header2">Asperity</p>
+                <div class="panelcontent collapse">
+                    <input type="checkbox" id="multibounce">
+                    <label for="multibounce">Use asperity</label>
+                </div>
+			</div> <!-- END asperity -->
+            
+			<div id="absorption" class="glossy glossytranslucent">
+                <p class="header2">Absorption</p>
+                <div class="panelcontent collapse">
+                    <input type="checkbox" id="use_absorption">
+                    <label for="use_absorption">Use absorption</label>
+                    <div class="collapse_check">
+                        
+                        <div class="parameter_interface_L">
+                            <table id="swatch_absorption"><tr><td id="absorption_swatch" class="swatch" ></td></tr></table>
+                            <!-- <label for="ka_R" class="kdr">Red</label><input type='text' id="ka_R" size="6" class="kdrvalue">
+                            <label for="ka_G" class="kdg">Green</label><input type='text' id="ka_G" size="6" class="kdgvalue">
+                            <label for="ka_B" class="kdb">Blue</label><input type='text' id="ka_B" size="6" class="kdbvalue"> -->
+                            <div class="texture_area_swatchfield">
+                                <!-- <label for="ka_texturetype" class="tex_label">Texture</label> -->
+                                <select id="ka_texturetype" class="tex_dropdown">
+                                    <option value="none">no texture</option>
+                                    <option value="imagemap">image map</option>
+                                    <option value="procedural">procedural texture</option>
+                                    <option value="sketchup">SketchUp texture</option>
+                                </select>
+                                <span class="imagemap">
+                                    <div id="ka_imgmapname" class="tex_path">&nbsp;</div>
+                                    <input type="button" id="ka_browse_map"  class="tex_loadbutton" value="load image">
+                                </span>
+								<span class="procedural">
+									<div class="proctextsection">
+										<select id="ka_imagemap_proctex" class="proctex_dropdown proctex_dropdown_color">
+											<option value="noProcText">no textures defined</option>
+										</select>
+									</div>
+								</span>
+                            </div>
+                        </div>
+                        
+                        <div class="parameter_interface">
+                            <label for="ka_d" class="parameter_label">Depth</label>
+                            <input type='text' id="ka_d" class="parameter_field">
+                            
+                            <div class="texture_area">
+                                <!-- <label for="ka_d_texturetype" class="tex_label">Texture</label> -->
+                                <select id="ka_d_texturetype" class="tex_dropdown">
+                                    <option value="none">no texture</option>
+                                    <option value="imagemap">image map</option>
+                                    <option value="procedural">procedural texture</option>
+                                    <option value="sketchup">SketchUp texture</option>
+                                </select>
+                                <span class="imagemap">
+                                    <div id="ka_d_imgmapname" class="tex_path">&nbsp;</div>
+                                    <input type="button" id="ka_d_browse_map" class="tex_loadbutton" value="load image">
+                                </span>
+								<span class="procedural">
+									<div class="proctextsection">
+										<select id="ka_d_imagemap_proctex" class="proctex_dropdown proctex_dropdown_color">
+											<option value="noProcText">no textures defined</option>
+										</select>
+									</div>
+								</span>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+			</div> <!-- END absorption> -->
+            
+			<div id="thin_film_coating" class="glass glass2 mirror shinymetal">
+				<p class="header2">Thin film coating</p>
+                <div class="panelcontent collapse">
+                <input type="checkbox" id="use_thin_film_coating" class="margin_bottom"><label for="use_thin_film_coating"> Use thin film coating</label>
+				<div class="collapse_check">
+                        <div class="parameter_interface">
+                            <label for="film" class="parameter_label">Thickness (nm)</label>
+                            <input type='text' id="film" class="parameter_field_coating">
+                            <div class="texture_area">
+                                <!-- <label for="film_texturetype" class="tex_label">Texture</label> -->
+                                <select id="film_texturetype" class="tex_dropdown">
+                                    <option value="none">no texture</option>
+                                    <option value="imagemap">image map</option>
+                                    <option value="procedural">procedural texture</option>
+                                    <option value="sketchup">SketchUp texture</option>
+                                </select>
+                                <span class="imagemap">
+                                    <div id="kd_imgmapname" class="tex_path">&nbsp;</div>
+                                    <input type="button" id="film_browse_map" value="load image" class="tex_loadbutton">
+                                </span>
+								<span class="procedural">
+									<div class="proctextsection">
+										<select id="film_imagemap_proctex" class="proctex_dropdown proctex_dropdown_float">
+											<option value="noProcText">no textures defined</option>
+										</select>
+									</div>
+								</span>
+                            </div> <!-- end texture area -->
+                        </div> <!-- end parameter interface -->
+                        <div class="parameter_interface">
+                            <label for="filmindex" class="parameter_label">Film IOR</label>
+                            <input type='text' id="filmindex" class="parameter_field_coating">
+                            <div class="texture_area">
+                                <!-- <label for="filmindex_texturetype" class="tex_label">Texture</label> -->
+                                <select id="filmindex_texturetype" class="tex_dropdown">
+                                    <option value="none">no texture</option>
+                                    <option value="imagemap">image map</option>
+                                    <option value="procedural">procedural texture</option>
+                                    <option value="sketchup">SketchUp texture</option>
+                                </select>
+                                <span class="imagemap">
+                                    <div id="kd_imgmapname" class="tex_path">&nbsp;</div>
+                                    <input type="button" id="filmindex_browse_map" value="load image" class="tex_loadbutton">
+                                </span>
+								<span class="procedural">
+									<div class="proctextsection">
+										<select id="filmindex_imagemap_proctex" class="proctex_dropdown proctex_dropdown_float">
+											<option value="noProcText">no textures defined</option>
+										</select>
+									</div>
+								</span>
+                            </div>
+                        </div><!-- end parameter interface -->
+                    </div> <!-- end panel content -->
+				</div> <!-- end collapse_check -->
+			</div> <!-- end thin film coating -->
+            
+			<div id="dispersive_refraction"class="glass glass2 roughglass">
+				<p class="header2">Dispersive refraction</p>
+                <div class="panelcontent collapse">
+				<input type="checkbox" id="use_dispersive_refraction" class="margin_bottom">
+                    <label for="use_dispersive_refraction">Use dispersive refraction</label>
+                    <div class="collapse_check">
+                        <div class="parameter_interface_refraction">
+                            <label for="cauchyb" class="parameter_label">Cauchy coefficient</label>
+                            <input type='text' id="cauchyb" class="parameter_field_dr">
+                            <div class="texture_area_dr">
+                                <!-- label for="cauchyb_texturetype" class="tex_label">Texture</label> -->
+                                <select id="cauchyb_texturetype" class="tex_dropdown">
+                                    <option value="none">no texture</option>
+                                    <option value="imagemap">image map</option>
+                                    <option value="procedural">procedural texture</option>
+                                    <option value="sketchup">SketchUp texture</option>
+                                </select>
+                                <span class="imagemap">
+                                    <div id="cauchyb_imgmapname" class="tex_path">&nbsp;</div>
+                                    <input type="button" id="cauchyb_browse_map" value="load image" class="tex_loadbutton">
+                                </span>
+								<span class="procedural">
+									<div class="proctextsection">
+										<select id="cauchyb_imagemap_proctex" class="proctex_dropdown proctex_dropdown_float">
+											<option value="noProcText">no textures defined</option>
+										</select>
+									</div>
+								</span>
+                            </div>
+                        </div>
+                    </div>
+				</div>
+			</div>
+            
+			<div id="energy_conservation" class="mattetranslucent">
+                <p class="header2">Conserve energy</p>
+                <div class="panelcontent collapse">
+                    <input type="checkbox" id="energyconserving"><label for="energyconserving">Enable energy conservation</label>
+                </div>
+			</div> <!-- END asperity -->
+            
+			<div id="bump" class="matte glossy glass glass2 roughglass metal metal2 mirror shinymetal mattetranslucent glossytranslucent velvet cloth">
+				<p class="header2">Bump map</p>
+				<div class="panelcontent collapse">
+					<input type="checkbox" id="use_bump">
+					<label for="use_bump">Use bump</label><br><br>
+					<div class="collapse_check">
+						<div class="parameter_interface">
+							<label for="bumpmap" class="parameter_label">Scale (m)</label>
+							<input type='text' id="bumpmap" size="6em" class="parameter_field">
+								<div class="texture_area">
+									<!-- <label for="bump_texturetype" class="tex_label">Texture</label> -->
+									<select id="bump_texturetype" class="tex_dropdown">
+										<option value="none">no texture</option>
+										<option value="imagemap">image map</option>
+										<option value="procedural">procedural texture</option>
+										<option value="sketchup">SketchUp texture</option>
+									</select>
+									<span class="imagemap">
+										<div id="bump_imgmapname" class="tex_path">&nbsp;</div>
+										<input type="button" id="bump_browse_map" value="load image" class="tex_loadbutton">
+									</span>
+									<span class="procedural">
+										<div class="proctextsection">
+											<select id="bump_imagemap_proctex" class="proctex_dropdown proctex_dropdown_float">
+												<option value="noProcText">no textures defined</option>
+											</select>
+										</div>
+									</span>
+								</div>
+						</div><!-- end parameter interface -->
+					</div><!-- end collapse_check -->
+				</div><!-- end panelcontent_ collapse -->
+			</div> <!-- END Bump -->
+            
+            <div id="normal" class="matte glossy glass glass2 roughglass metal metal2 mirror shinymetal mattetranslucent glossytranslucent velvet cloth">
+				<p class="header2">Normal map</p>
+				<div class="panelcontent collapse">
+					<input type="checkbox" id="use_normal">
+					<label for="use_normal">Use normal map</label><br><br>
+					<div class="collapse_check">
+						<div class="parameter_interface">
+							Normal map
+							<div class="texture_area">
+								<!-- <label for="normal_texturetype" class="tex_label">Texture</label> -->
+								<select id="normal_texturetype" class="tex_dropdown">
+									<option value="none">no texture</option>
+									<option value="imagemap">image map</option>
+									<option value="sketchup">SketchUp texture</option>
+								</select>
+								<span class="imagemap">
+									<div id="normal_imgmapname" class="tex_path">&nbsp;</div>
+									<input type="button" id="normal_browse_map" value="load image" class="tex_loadbutton">
+								</span>
+								<span class="procedural">
+									<div class="proctextsection">
+										<select id="normal_imagemap_proctex" class="proctex_dropdown proctex_dropdown_float">
+											<option value="noProcText">no textures defined</option>
+										</select>
+									</div>
+								</span>
+							</div>
+						</div><!-- end parameter interface -->
+					</div>
+                </div><!-- end panelcontent -->
+			</div> <!-- END normal -->
+            
+            
+			<div id="displacement" class="matte mattetranslucent mix glossy metal metal2 mirror shinymetal glossytranslucent roughglass velvet glass glass2 carpaint cloth">
+				<p class="header2">Displacement Map</p>
+                <div class="panelcontent collapse">
+				<input type="checkbox" id="use_displacement" class="margin_bottom"><label for="use_displacement"> Use displacement</label>
+                <div class="collapse_check">
+                    <div class="parameter_interface_displacement">
+                        <label for="dm_scheme" class="parameter_label">Type</label>
+                        <select id="dm_scheme" class="parameter_field_dm">
+                            <option value="loop">Subdivision loop</option>
+                            <option value="microdisplacement">Microdisplacement</option>
+                        </select>
+                        <label for="dm_scale" id="dm_scale_label">Scale (m)</label>
+                        <input type='text' id="dm_scale" size="6">
+                        <label for="dm_offset" id="dm_offset_label">Offset (m)</label>
+                        <input type='text' id="dm_offset" size="6"><br>
+                        <div id="loop">
+                            <input type="checkbox" id="dm_normalsmooth"><label for="dm_normalsmooth" id="dm_normalsmooth_label">Normal Smooth</label>
+                            <input type="checkbox" id="dm_normalsplit"><label for="dm_normalsplit" id="dm_normalsplit_label">Normal Split</label>
+                            <input type="checkbox" id="dm_sharpboundary"><label for="dm_sharpboundary" id="dm_sharpboundary_label">Sharp Boundary</label>
+                            <label for="dm_subdivl" id="dm_subdiv_label">Subdivision levels</label>
+                            <input type='text' id="dm_subdivl" size="6"><br>
+                        </div>
+                        <div class="texture_area_dr">
+                            <!-- <label for="dm_texturetype" class="tex_label">Texture</label> -->
+                            <select id="dm_texturetype" class="tex_dropdown">
+                                <option value="none">no texture</option>
+                                <option value="imagemap">image map</option>
+                                <option value="procedural">procedural texture</option>
+                                <option value="sketchup">SketchUp texture</option>
+                            </select>
+                            <span class="imagemap">
+                                <div id="dm_imgmapname" class="tex_path">&nbsp;</div>
+                                <input type="button" id="dm_browse_map" value="load image" class="tex_loadbutton">
+                            </span>
+							<span class="procedural">
+								<div class="proctextsection">
+									<select id="dm_imagemap_proctex" class="proctex_dropdown proctex_dropdown_float">
+										<option value="noProcText">no textures defined</option>
+									</select>
+								</div>
+							</span>
+                        </div>
+                        <div id="microdisplacement">
+                            <label for="dm_microlevels" id="dm_microlevels_label">Divisions</label>
+                            <input type='text' id="dm_microlevels" size="6"><br>
+                        </div>
+                    </div> <!-- parameter interface -->
+                </div> <!-- collapse check -->
+				</div> <!-- panel content -->
+			</div> <!-- END displacement map -->
+
+    <div id="light" class="light">
+        <p class="header2">Light</p>
+        <div class="panelcontent collapse">
+            <div class="parameter_interface_light">
+                <div id="lightgain">
+                    <label for="light_gain" class="parameter_label">Power</label>
+                    <input type="text" id="light_gain" size="6" class="parameter_field_spectrum">
+                </div>
+                <!-- <label for="light_power">Power</label>
+                 <input type="text" id="light_power" size="6">
+                 <label for="light_efficacy">Efficacy</label>
+                 <input type="text" id="light_efficacy" size="6"> -->
+                <div id="lightspectrum">
+                    <label for="light_L">Spectrum</label>
+                    <select id="light_L" class="parameter_field_spectrum">
+                        <option value="emit_color">RGB Color</option>
+                        <option value="blackbody">Color temperature</option>
+                        <option value="emit_preset">Spectrum preset</option>
+                    </select>
+                </div>
+            </div>
+                
+            <div class="parameter_interface">
+                <div class="light_L" id="blackbody">
+                    <label for="light_temperature" class="parameter_label">Color Temperature (K)</label>
+                    <input type="text" id="light_temperature" size="6" class="parameter_field_lightT">
+                </div>
+
+                <div class="light_L" id="emit_color">
+                    <table id="swatch_em"><tr><td id="em_swatch" class="swatch" ></td></tr></table>
+                    <!-- <label for="em_R" class="kdr">Red</label><input type='text' id="em_R" size="6" class="kdrvalue">
+                    <label for="em_G" class="kdg">Green</label><input type='text' id="em_G" size="6" class="kdgvalue">
+                    <label for="em_B" class="kdb">Blue</label><input type='text' id="em_B" size="6" class="kdbvalue"> -->
+                        
+                    <div class="texture_area_swatchfield">
+                        <!-- <label for="em_texturetype" class="tex_label">Texture</label> -->
+                        <select id="em_texturetype" class="tex_dropdown" name="em">
+                            <option value="none">no texture</option>
+                            <option value="imagemap">image map</option>
+                            <option value="procedural">procedural texture</option>
+                            <option value="sketchup">SketchUp texture</option>
+                        </select>
+                        <span class="sketchup">&nbsp;
+                        </span>
+                        <span class="imagemap">
+                            <div id="em_imgmapname" class="tex_path">&nbsp;</div>
+                            <input type="button" id="em_browse_map" value="load image" class="tex_loadbutton">
+                        </span>
+						<span class="procedural">
+							<div class="proctextsection">
+								<select id="em_imagemap_proctex" class="proctex_dropdown proctex_dropdown_color">
+									<option value="noProcText">no textures defined</option>
+								</select>
+							</div>
+						</span>
+                    </div>
+                </div>
+
+                <div class="light_L" id="emit_preset">
+                    <label for="light_spectrum">Preset</label>
+                    <select id="light_spectrum" class="parameter_field_spectrum">
+                        <option value="Daylight">daylight</option>
+                        <option value="Alcohol">flame, alcohol</option>
+                        <option value="Butane">flame, butane</option>
+                        <option value="Candle">flame, paraffin</option>
+                        <option value="Incandescent1">incandescent</option>
+                        <option value="AntiInsect">incandescent, anti-insect</option>
+                        <option value="Welsbach">gas mantle</option>
+                        <option value="FLD2">fluorescent, regular</option>
+                        <option value="FL37K">fluorescent, warm</option>
+                        <option value="CFL27K">fluorescent, tri-phosphor</option>
+                        <option value="CFL4K">fluorescent, tri-phosphor, warm</option>
+                        <option value="LEDB">LED, blue</option>
+                        <option value="RedLaser">LED, red</option>
+                        <option value="GreenLaser">LED, green</option>
+                        <option value="HPM2">high pressure mercury</option>
+                        <option value="HPMFL1">high pressure mercury, improved</option>
+                        <option value="LPS">sodium, low pressure</option>
+                        <option value="MPS">sodium, medium pressure</option>
+                        <option value="HPS">sodium, high pressure</option>
+                        <option value="SHPS">sodium, super high prssure</option>
+                        <option value="MHN">metal halide, red</option>
+                        <option value="MHWWD">metal halide, purple</option>
+                        <option value="MHSc">metal halide, white</option>
+                        <option value="FeCo">metal halide, cyan</option>
+                        <option value="BLAU">metal halide, blue</option>
+                        <option value="PLANTA">metal halide, plant growing specialty</option>
+                        <option value="GRUN">metal halide, green</option>
+                        <option value="XeI">low pressure, xenon</option>
+                        <option value="Rb">low pressure, rubidium</option>
+                        <option value="Cd">low pressure, cadmium</option>
+                        <option value="Zn">low pressure, zinc</option>
+                        <option value="Ne">glow discharge, neon</option>
+                        <option value="NeKrFL">glow discharge, neon – krypton – green phosphor</option>
+                        <option value="NeXeFL1">glow discharge, neon – xenon – green phosphor</option>
+                        <option value="NeXeFL2">glow discharge, neon – xenon – blue phosphor</option>
+                        <option value="Ar">glow discharge, argon</option>
+                        <option value="TV">CRT TV</option>
+                        <option value="FLBL">blacklight</option>
+                    </select>
+                </div>
+            </div><!-- end parameter_interface -->
+            <div class="parameter_interface_single_padded">
+                <label for="lightbase" class="parameter_label">Base material</label>
+                <select id="lightbase" class="parameter_field_spectrum">
+                    <option value="default">default</option>
+                </select>
+            </div>
+			
+            <div class="parameter_interface_single">
+                <label for="ies_path" class="parameter_label">IES file</label>
+		        <input type="text" id="ies_path" class="parameter_field_spectrum">
+			</div>
+			<div>
+				<input type="button" id="ies_path_button" value="Browse IES" class="IES_browse">
+				<input type="button" id="ies_path_clear" value="Clear IES" class="IES_clear">
+            </div>
+			
+            
+        </div> <!-- end panelcontent -->
+    </div> <!-- end light -->
+    
+    <div id="portal" class="portal">
+        <p class="header2">Portal</p>
+        <div class="panelcontent collapse">
+            <div class="parameter_interface">
+				(no parameters)
+            </div>
+        </div>
+    </div>
+    
+        
+    <div id="null" class="null">
+        <p class="header2">Null</p>
+        <div class="panelcontent collapse">
+            <div class="parameter_interface">
+				(no parameters)
+            </div>
+        </div>
+    </div>
+    
+    
+</div> <!-- END material_type -->
+		<hr>
+		<input type="button" id="reset" value="reset material settings">
+	</div>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>about SU2LUX</title>
+    
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript">
+$(document).ready(
+function(){
+    $("#rendered, #viewport").mousemove(function(event){
+        if (event.pageX > 436) { sweepwidth = 451 }
+        else if (event.pageX < 10) { sweepwidth = 0 }
+        else { sweepwidth = event.pageX }
+        $("#rendered").css('clip', 'rect(0px, ' + sweepwidth + 'px , 273px, 0px)');
+    })
+})
+</script>
+
+
+<style>
+#viewport {position: absolute; left: 0px; top: 0px;}
+#rendered {position: absolute; left: 0px; top: 0px;clip:rect(0px,451px,273px,0px);}
+#textfield {position: absolute; left: 0px; top: 263px; padding: 12px; margin: 5px; font-family: sans-serif; font-size: 8pt; color: #aaa; line-height: 150%}
+h2, h3{color: #ccc; margin-bottom: 0px; padding-bottom: 0px;}
+a {color: #aaa}
+body {overflow-x:hidden; overflow-y: auto}
+</style>
+
+</head>
+<body bgcolor=444444>
+    <img src="viewport.png" id="viewport">
+<img src="rendered.png" id="rendered">
+    
+    
+<div id="textfield">
+    <h2>SU2LUX, LuxRender exporter for SketchUp</h2>
+    <p style="color: #777; margin-top: 1px; padding-top: 2px">version 0.45b, 12 February 2017
+</p>
+    
+    <p>by Abel Groenewolt, Alexander Smirnov, Luke Frisken, Martijn Berger and Mimmo Briganti</p>
+    <p>SU2LUX is partially based on SU2KT, SU2POV and Kojack's OGRE exporter and makes use of the jQuery library and the Farbtastic color picker.</p>
+    <p>LuxRender and SU2LUX are free software. Your questions and feedback are most welcome at the <a href="http://www.luxrender.net/forum/viewforum.php?f=35" target="new1">LuxRender forum</a>.</p>
+    <p><a href="http://www.luxrender.net" target="new2">www.luxrender.net</a></p>
+    
+</div>
+    
+</body>
+
+</html>

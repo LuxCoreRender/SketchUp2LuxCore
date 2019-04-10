@@ -1,0 +1,110 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>SU2LUX Lamp Editor</title>
+
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="LampEditor.js"  charset="UTF-8"></script>
+
+<link href="common.css" type="text/css" rel="stylesheet">
+<link href="LampEditor.css" type="text/css" rel="stylesheet">
+ 
+</head>
+<body>
+
+<!--  add dropdown menu with procedural textures  -->
+<div id="head" class="parameter_interface_top">
+	<label for="lamps_in_model" id="lamps_in_model_label">Lamp</label>
+	<select id="lamps_in_model">
+		<option value="bogus">no lamps defined</option>
+	</select>
+	<input type="button" id="create_lamp" value="new">
+	<!-- <input type="button" id="delete_Lamp" value="delete"> (to be implemented) -->
+</div>
+
+<div id="lamp_type_area">
+	 <p class="header2">Lamp type</p>
+	<div class="parameter_interface_single">
+		<label for="lamp_type" class="parameter_label">Type</label>
+		<select id="lamp_type" class="parameter_field">
+			<option value="spot">spot</option>
+			<option value="point">point</option>
+			<option value="projection">projection</option>		
+		</select>
+	</div>
+</div>
+
+
+<div id="gain_container" class="parameter_area point spot projection">
+	 <p class="header2">Lamp parameters</p>
+	<div class="parameter_interface_single">
+		<label for="gain" class="parameter_label">Gain</label>
+		<input type='text' id="gain" class="parameter_field">
+	</div>
+</div>
+
+
+<div id="color" class="parameter_area point spot projection">
+	<div class="parameter_interface">
+		<table id="swatch_color"><tr><td id="lamp_color_swatch" class="swatch"></td></tr></table>
+		<!-- <label for="absorption_scale" class="parameter_label_right">Scale</label>
+		<input type='text' id="absorption_scale" class="parameter_field"> -->
+	</div>
+</div>
+
+
+
+<div id="coneangle_container" class="parameter_area spot">
+	<div class="parameter_interface_single">
+		<label for="coneangle" class="parameter_label">Angle</label>
+		<input type='text' id="coneangle" class="parameter_field">
+	</div>
+</div>
+
+<div id="conedeltaangle_container" class="parameter_area spot">
+	<div class="parameter_interface_single">
+		<label for="conedeltaangle" class="parameter_label">Fade angle</label>
+		<input type='text' id="conedeltaangle" class="parameter_field">
+	</div>
+</div>
+
+<div id="fov_container" class="parameter_area projection">
+	<div class="parameter_interface_single">
+		<label for="fov" class="parameter_label">Field of view</label>
+		<input type='text' id="fov" class="parameter_field">
+	</div>
+</div>
+
+
+<div id="ies_container" class="parameter_area"> <!--  hidden: was used by point light, but using IES with a point light seems remarkably slow  -->
+	<div class="parameter_interface_single">
+		<label for="iesname" class="parameter_label">IES file</label>
+		<input type="text" id="iesname" class="parameter_field_wide">
+	</div>
+	<input type="button" id="iesname_button" value="Browse IES" class="IES_browse">
+	<input type="button" id="iesname_clear" value="Clear IES" class="IES_clear">
+</div>
+
+<div id="mapname_container" class="parameter_area projection">
+	<div class="parameter_interface_single">
+		<label for="mapname" class="parameter_label">Projection image</label>
+		<input type="text" id="mapname" class="parameter_field_wide">
+	</div>
+	<input type="button" id="mapname_button" value="Browse image">
+	<input type="button" id="mapname_clear" value="Clear image">
+</div>
+
+
+<div id="light_group_area" class="parameter_area point spot projection">
+	<p class="header2">Light group</p>
+	<div class="parameter_interface_single">
+		<label for="light_group" class="parameter_label">Light group</label>
+		<input type="text" id="light_group" class="parameter_field_wide">
+	</div>
+</div>
+
+
+</div>
+</body>
+</html>

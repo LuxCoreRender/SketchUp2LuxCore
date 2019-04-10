@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+<head>
+<title>SU2LUX Texture Editor</title>
+
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="MaterialEditor.js"></script>
+
+<link href="common.css" type="text/css" rel="stylesheet">
+<link href="TextureEditor.css" type="text/css" rel="stylesheet">
+ 
+</head>
+<body>
+
+<img src="empty_texture.png" id="texture_preview" width="300px">
+
+<div id="texture_interface">
+    <div class="filename_row">
+        <input type="text" id="imagemap_filename" size="9em">
+        <input type="button" id="imagemap_filename_browse" value="Browse">
+    </div>
+    <div class="parameter_row">
+        <label for="imagemap_uscale" class="parameter_name">Tiling X</label>
+        <input type="text" id="imagemap_uscale" size="10" class="parameter_field">
+    </div>
+    <div class="parameter_row">
+        <label for="imagemap_vscale" class="parameter_name">Tiling Y</label>
+        <input type="text" id="imagemap_vscale" size="10" class="parameter_field">
+    </div>
+    <div class="parameter_row">
+        <label for="imagemap_gamma" class="parameter_name">Gamma</label>
+        <input type="text" id="imagemap_gamma" size="10" class="parameter_field">
+    </div>
+    <div class="parameter_row">
+        <label for="imagemap_filtertype" class="parameter_name">Interpolation</label>
+        <select id="imagemap_filtertype" class="parameter_field">
+            <option value="bilinear">smooth</option>
+            <option value="nearest">sharp (nearest)</option>
+        </select>
+    </div>
+
+
+</div>
+
+<div id="texture_buttons">
+    <input type="button" id="update_changes" value="OK">
+    <input type="button" id="cancel_changes" value="Cancel">
+</div>
+</body>
+</html>

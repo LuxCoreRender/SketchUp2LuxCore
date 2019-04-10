@@ -1,0 +1,670 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+<head>
+<title>SU2LUX scene settings editor</title>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="scene_settings.js"></script>
+<link href="common.css" type="text/css" rel="stylesheet">
+<link href="scene_settings.css" type="text/css" rel="stylesheet">
+</head>
+<body>
+
+<div id="scene_settings_panel">
+    
+<p class="header" id="camera">Camera</p>
+<div class="collapse">
+    Select camera type:	<select id="camera_type">
+        <option value="SketchUp">SketchUp</option>
+        <option value="environment">environment</option>
+    </select><br><br>
+    <!--- <div id="view" class="perspective">
+        <label for="fov">fov:</label>
+        <input type='text' id="fov" size="10">
+        <label for="focal_length">focal length:</label>
+        <input type='text' id="focal_length" size="10">
+    </div> -->
+    <!-- the scale parameter is not currently used; this should be reimplemented in such a way
+         that the user can either specify an exact scale (image size in meters) or use the current 3d view scale
+        <div id="scale_view" class="orthographic">
+        <label for="camera_scale">scale:</label>
+        <input type='text' id="camera_scale" size="4">
+    </div> -->
+    <div id="near_far_clipping_block" class="SketchUp environment">
+        <input type="checkbox" id="use_clipping">
+            <label for="use_clipping">Use clipping</label>
+        <div class="collapse">
+			<div class=parameter_interface_single>
+				clipping start
+				<input type='text' id="hither" size="10" class="inputfield1">
+			</div>
+			<div class=parameter_interface_single>
+				clipping end
+				<input type='text' id="yon" size="10" class="inputfield1">
+			</div>
+        </div>
+    </div>
+    
+    <div id="dof_bokeh_block" class="SketchUp">
+        <div>
+            <input type="checkbox" id="use_dof_bokeh">
+            <label for="use_dof_bokeh">Use depth of field</label>
+            <div class="collapse">
+                <div class="parameter_interface">
+                    <div class="label1">Focus type</div> <select id="focus_type" class="inputfield1">
+                        <option value="autofocus">Autofocus</option>
+                        <option value="manual">Manual</option>
+                    </select>
+                    <span class="manual">
+                        <label for="focaldistance" class="label2">Distance (m)</label>
+                        <input type='text' id="focaldistance" size="10" class="inputfield2">
+						<input type='button' id="pickfocaldistance" value="pick focus point" style="width: 11em">
+                    </span>
+                    <span class="autofocus">
+                        <label for="focaldistance">&nbsp;</label>
+                    </span>
+                    <label for="aperture" class="label3">Aperture (f)</label>
+                    <input type='text' id="aperture" size="10" class="inputfield3">
+                </div>
+               
+                <div class="parameter_interface">
+                    <div class="label1">Bokeh character</div>
+                    <select id="distribution" class="inputfield1x">
+                        <option value="uniform">Uniform</option>
+                        <option value="exponential">Exponential</option>
+                        <option value="inverse exponential">Inverse Exponential</option>
+                        <option value="gaussian">Gaussian</option>
+                        <option value="inverse gaussian">Inverse Gaussian</option>
+                    </select>
+                   
+                    <div class="label2">Blades</div> <input type='text' id="blades" size="10" class="inputfield2x">
+                    <div class="label3">Power</div> <input type='text' id="power" size="10" class="inputfield3x">
+                </div>
+            </div><!-- end "collapse" -->
+        </div>
+        
+    </div> <!-- END dof_bokeh_block -->
+    
+    <!-- <div id="architectural_block" class="SketchUp"> # removed for orthographic view, shift can be more easily set in 3d view 
+        <input type="checkbox" id="use_architectural">
+        <label for="use_architectural">Use lens shift</label>
+        <div class="collapse">
+			<div class=parameter_interface_single>
+				<label for="shiftX">lens shift X</label>
+				<input type='text' id="shiftX" size="10"  class="inputfield1">
+            </div>
+			<div class=parameter_interface_single>
+				<label for="shiftY">lens shift Y</label>
+				<input type='text' id="shiftY" size="10" class="inputfield1">
+			</div>
+            <!-- <br>
+            <label for="use_ratio">Use custom aspect ratio</label>
+            <input type="checkbox" id="use_ratio">
+            <div class ="collapse">
+                Aspect ratio<input type='text' id="frameaspectratio" size="10">
+            </div>
+        </div>
+    </div> # END architectural_block -->
+    
+    <!-- <div id="motion_blur_block" class="perspective orthographic environment">
+    <p class="header2">Motion Blur</p>
+        <input type="checkbox" id="use_motion_blur">
+        <label for="use_motion_blur">Use motion blur</label>
+        <div class="collapse">
+        start:<input type='text' id="shutteropen" size="10">
+        end:<input type='text' id="shutterclose" size="10">
+        Distribution <select id="shutterdistribution">
+            <option value="uniform">Uniform</option>
+            <option value="gaussian">Gaussian</option>
+        </select>
+        </div>
+    </div>  -->
+</div><!-- END Camera section -->
+
+
+<p class="header" id="environment">Sun, Sky and Environment Lighting</p>
+		<div class="collapse">
+			<label for="environment_light_type">Environment light type:</label>
+			<select id="environment_light_type">
+				<option value="none">none</option>
+				<option value="environmentcolor">SketchUp background color</option>
+                <option value="environmentimage">image</option>
+				<option value="sunsky">sunsky</option>
+			</select>
+            
+			<div class="sunsky environment_light_type" id="sunsky">
+				<input type="checkbox" id="environment_use_sun">
+				<label for="environment_use_sun">use sun</label><br>
+                
+                <div class="collapse">
+                    <div class=parameter_interface_single>
+                        <label for="environment_sun_lightgroup" class="label1">Light group</label>
+                        <input type='text' id="environment_sun_lightgroup" size="10" class="inputfield1">
+                    </div>
+                    <div class=parameter_interface_single>
+                        <label for="environment_sun_gain" class="label1">Gain</label>
+                        <input type='text' id="environment_sun_gain" size="10" class="inputfield1">
+                    </div>
+                    <div class=parameter_interface_single>
+                        <label for="environment_sun_turbidity" class="label1">Turbidity</label>
+                        <input type='text' id="environment_sun_turbidity" size="3" class="inputfield1">
+                    </div>
+                    <div class=parameter_interface_single>
+                        <label for="environment_sun_relsize" class="label1">Relative size</label>
+                        <input type='text' id="environment_sun_relsize" size="3" class="inputfield1">
+                    </div>
+                </div>
+                
+				<input type="checkbox" id="environment_use_sky">
+				<label for="environment_use_sun">use sky</label><br>
+                
+                <div class="collapse environment_common">
+                    <div class=parameter_interface_single>
+                        <label for="environment_sky_lightgroup" class="label1 environment_common">light group</label>
+                        <input type='text' id="environment_sky_lightgroup" size="10" class="inputfield1 environment_common">
+                    </div>
+                    <div class=parameter_interface_single>
+                        <label for="environment_sky_gain" class="label1 environment_common">gain</label>
+                        <input type='text' id="environment_sky_gain" size="10" class="inputfield1 environment_common">
+                    </div>
+                    <div class=parameter_interface_single>
+                        <label for="environment_sky_turbidity" class="label1 environment_common">turbidity</label>
+                        <input type='text' id="environment_sky_turbidity" size="3" class="inputfield1 environment_common">
+                    </div>
+                </div>
+			</div>
+            
+			<div class="environmentimage environment_light_type" id="environmentimage">
+                <div class=parameter_interface_single>
+                    <label for="environment_infinite_mapname" class="label1">File name</label>
+                    <input type='text' id="environment_infinite_mapname" size="31" title="Choose an image map to use as a background"  class="inputfield1">
+                    <input type="button" id="map_file_path_browse" value="Browse" title="Open image file selector" class="inputfield1_button">
+                </div>
+                <div class=parameter_interface_single>
+                    <label for="environment_infinite_mapping" class="label1">Mapping</label>
+                    <select id="environment_infinite_mapping" class="inputfield1">
+                        <option value="latlong">latlong</option>
+                        <option value="angular">angular</option>
+                        <option value="vcross">vcross</option>
+                    </select>
+                </div>
+                <div class=parameter_interface_single>
+                    <label for="environment_infinite_gain" class="label1">Gain</label>
+                    <input type='text' id="environment_infinite_gain" size="10" class="inputfield1">
+                </div>
+            </div>
+            <div  class="environmentimage environmentcolor environment_light_type">
+                <div class=parameter_interface_single>
+                    <label for="environment_infinite_lightgroup" class="label1">Light group</label>
+                    <input type='text' id="environment_infinite_lightgroup" size="14" class="inputfield1">
+                </div>
+            </div>
+			
+            <div  class="environmentimage environment_light_type">
+                <div class=parameter_interface_single>
+                    <label for="environment_infinite_gamma" class="label1">Gamma</label>
+                    <input type='text' id="environment_infinite_gamma" size="10" class="inputfield1">
+                </div>
+                
+                <div class=parameter_interface_single>
+                    <div class="label1">Rotation</div>
+                    <div class="inputfield1">
+                        <label for="environment_infinite_rotatex">X</label>
+                        <input type='text' id="environment_infinite_rotatex" size="2">&nbsp;
+                        <label for="environment_infinite_rotatey">Y</label>
+                        <input type='text' id="environment_infinite_rotatey" size="2">&nbsp;
+                        <label for="environment_infinite_rotatez">Z</label>
+                        <input type='text' id="environment_infinite_rotatez" size="2">&nbsp;
+                    </div>
+                </div>
+			</div>
+            
+            <div class="environmentimage environmentcolor environment_light_type">
+				<input type="checkbox" id="use_environment_infinite_sun" class="environment_light_type">
+                <label for="use_environment_infinite_sun">add sun</label>
+				<div class="collapse use_environment_infinite_sun">
+                    <div class="parameter_interface_single">
+                        <label for="environment_infinite_sun_lightgroup" class="label1">Light group</label>
+                        <input type='text' id="environment_infinite_sun_lightgroup" size="10" class="inputfield1">
+                    </div>
+                    <div class="parameter_interface_single">
+                        <label for="environment_infinite_sun_gain" class="label1">Gain</label>
+                        <input type='text' id="environment_infinite_sun_gain" size="10" class="inputfield1">
+                    </div>
+                    <div class="parameter_interface_single">
+                        <label for="environment_infinite_sun_turbidity" class="label1">Turbidity</label>
+                        <input type='text' id="environment_infinite_sun_turbidity" size="3" class="inputfield1">
+                    </div>
+                    <div class="parameter_interface_single">
+                        <label for="environment_infinite_sun_relsize" class="label1">Relative size</label>
+                        <input type='text' id="environment_infinite_sun_relsize" size="3" class="inputfield1">
+                    </div>
+				</div>
+            </div>
+		</div>
+        
+        
+<p class="header" id="imageoutput">Image output</p>
+<div class="collapse">
+            <div class="parameter_interface_single">
+                <input type="checkbox" id="fleximage_write_png">
+                <label for="fleximage_write_png" class="fleximage_write_png">PNG</label>
+                <select id="fleximage_write_png_channels" class="collapse fleximage_write_png nopadding">
+                    <option value="RGB">RGB</option>
+                    <option value="RGBA">RGBA</option>
+                </select>
+                <select id="fleximage_write_png_16bit" class="collapse fleximage_write_png nopadding">
+                    <option value="false">8 bit</option>
+                    <option value="true">16 bit</option>
+                </select>
+                <!-- <label for="fleximage_write_png_gamutclamp">gamut clamp</label>
+                <input type="checkbox" id="fleximage_write_png_gamutclamp"> -->
+            </div>
+			
+            <div class="parameter_interface_single">
+                <input type="checkbox" id="fleximage_write_tga">
+                <label for="fleximage_write_tga">TGA</label>
+                <select id="fleximage_write_tga_channels" class="collapse nopadding">
+                    <option value="RGB">RGB</option>
+                    <option value="RGBA">RGBA</option>
+                </select>
+                <!--<label for="fleximage_write_tga_gamutclamp">gamut clamp</label>
+                <input type="checkbox" id="fleximage_write_tga_gamutclamp">-->
+            </div>
+
+            <div class="EXR_parameter">
+                <input type="checkbox" id="fleximage_write_exr">
+                <label for="fleximage_write_exr">EXR</label>
+				<select id="fleximage_write_exr_channels" class="collapse nopadding">
+					<option value="RGB">RGB</option>
+					<option value="RGBA">RGBA</option>
+				</select>
+				<!--<label for="fleximage_write_exr_halftype">16bit half</label>
+				<input type="checkbox" id="fleximage_write_exr_halftype">-->
+				<select id="fleximage_write_exr_compressiontype" class="collapse fleximage_write_exr nopadding">
+					<option value="RLE (lossless)">RLE (lossless)</option>
+					<option value="PIZ (lossless)">PIZ (lossless)</option>
+					<option value="ZIP (lossless)">ZIP (lossless)</option>
+					<option value="Pxr24">Pxr24</option>
+					<option value="None">no compression</option>
+				</select>
+                <select id="fleximage_write_exr_applyimaging" class="collapse fleximage_write_exr nopadding">
+					<option value="true">tone mapped</option>
+					<option value="false">raw image</option>
+				</select><br>
+                <!--<label for="fleximage_write_exr_gamutclamp">Gamut Clamp</label>
+                <input type="checkbox" id="fleximage_write_exr_gamutclamp">-->
+                <div class="collapse">
+                    <input type="checkbox" id="fleximage_write_exr_ZBuf"><label for="fleximage_write_exr_ZBuf">EXR Z buffer</label>
+                        <label for="fleximage_write_exr_zbuf_normalizationtype" class="collapse">&nbsp; &nbsp;  normalization</label>
+                    <select id="fleximage_write_exr_zbuf_normalizationtype" class="collapse nopadding">
+                        <option value="Camera Start/End clip">Camera clipping range</option>
+                        <option value="Min/Max">Min/Max</option>
+                        <option value="None">None</option>
+                    </select>
+                </div>
+            </div>
+            <div class="parameter_interface_single">
+                <input type="checkbox" id="fleximage_write_resume_flm">
+                <label for="fleximage_write_resume_flm">LuxRender film</label>
+                <select id="fleximage_restart_resume_flm" class="collapse">
+                    <option value="true">resume existing</option>
+                    <option value="false">start new film</option>
+                </select>
+            </div>
+            
+            <div class="parameter_interface_single">
+                <label for="fleximage_use_colorspace_preset" class="label1">Color space</label>
+                <select id="fleximage_colorspace_preset" class="inputfield1">
+                    <option value="sRGB - HDTV (ITU-R BT.709-5)">sRGB</option>
+                    <option value="ROMM RGB">ROMM RGB</option>
+                    <option value="Adobe RGB 98">Adobe RGB</option>
+                    <option value="Apple RGB">Apple RGB</option>
+                    <!-- <option value="NTSC (FCC 1953, ITU-R BT.470-2 System M)">NTSC (1953)</option> -->
+                    <option value="NTSC (1979) (SMPTE C, SMPTE-RP 145)">NTSC</option>
+                    <option value="PAL/SECAM (EBU 3213, ITU-R BT.470-6)">PAL/SECAM</option>
+                    <!-- <option value="CIE (1931) E">CIE (1931) E</option> -->
+                </select>
+            </div>
+            <!-- manual color space settings, not exposed
+                <div class="basic">
+                <label for="fleximage_colorspace_white_x">white X</label>
+                <input type='text' id="fleximage_colorspace_white_x" size="4">
+                <label for="fleximage_colorspace_white_y">white Y</label>
+                <input type='text' id="fleximage_colorspace_white_y" size="4">
+                <label for="fleximage_colorspace_red_x">red X</label>
+                <input type='text' id="fleximage_colorspace_red_x" size="4">
+                <label for="fleximage_colorspace_red_y">red Y</label>
+                <input type='text' id="fleximage_colorspace_red_y" size="4">
+                <label for="fleximage_colorspace_green_x">green X</label>
+                <input type='text' id="fleximage_colorspace_green_x" size="4">
+                <label for="fleximage_colorspace_green_y">green Y</label>
+                <input type='text' id="fleximage_colorspace_green_y" size="4">
+                <label for="fleximage_colorspace_blue_x">blue X</label>
+                <input type='text' id="fleximage_colorspace_blue_x" size="4">
+                <label for="fleximage_colorspace_blue_y">blue Y</label>
+                <input type='text' id="fleximage_colorspace_blue_y" size="4">
+                <label for="fleximage_gamma">Gamma</label>
+                <input type='text' id="fleximage_gamma" size="4">
+            </div> -->
+            
+
+            <div class="parameter_interface_single">
+                <label for="fleximage_colorspace_wp_preset" class="label1">White point</label>
+                <select id="fleximage_colorspace_wp_preset" class="inputfield1">
+                    <option value="use_colorspace_whitepoint"> use color space whitepoint</option>
+                    <option value="A - incandescent">incandescent</option>
+                    <option value="B - sunlight">sunlight</option>
+                    <!-- <option value="C - daylight">daylight</option> -->
+                    <option value="D50 - daylight, 5003">daylight, 5000K</option>
+                    <option value="D55 - daylight, 5503">daylight, 5500K</option>
+                    <option value="D65 - daylight, 6504">daylight, 6500K</option>
+                    <option value="D75 - daylight, 7504">daylight, 7500K</option>
+                    <option value="9300">9300K</option>
+                    <option value="E - equal energy">equal energy</option>
+                    <option value="F2 - standard fluorescent">standard fluorescent</option>
+                    <option value="F7 - broadband fluorescent">broadband fluorescent</option>
+                    <option value="F11 - narrow threeband fluorescent">narrow threeband fluorescent</option>
+                    <option value="use_custom_whitepoint">custom X/Y</option>
+                </select>
+            </div>
+            <div class="use_custom_whitepoint fleximage_colorspace_wp_preset" id="fleximage_colorspace_wp_preset">
+                <div class="parameter_interface_single">
+                    <label for="fleximage_colorspace_preset_white_x" class="label1">&nbsp; White point X</label>
+                    <input type='text' id="fleximage_colorspace_preset_white_x" size="8" class="inputfield1x">
+                </div>
+                <div class="parameter_interface_single">
+                    <label for="fleximage_colorspace_preset_white_y" class="label1">&nbsp; White point Y</label>
+                    <input type='text' id="fleximage_colorspace_preset_white_y" size="8" class="inputfield1x">
+                </div>
+            </div>
+            
+            <div class="parameter_interface_single">
+                <label for="fleximage_ldr_clamp_method" class="label1">Color clamping</label>
+                <select id="fleximage_ldr_clamp_method" class="inputfield1">
+                    <option value="lum">preserve luminance</option>
+                    <option value="hue">preserve hue</option>
+                    <option value="cut">clip</option>
+                </select>
+            </div>
+            <div>
+            <div class="parameter_interface_single">
+                <input type="checkbox" id="fleximage_premultiplyalpha">
+                <label for="fleximage_premultiplyalpha">premultiply alpha</label>
+            </div>
+            <div class="parameter_interface_single">
+                <label for="fleximage_outlierrejection_k" class="label1">Fireflies rejection</label>
+                <input type='text' id="fleximage_outlierrejection_k" size="4" class="inputfield1x">
+            </div>
+        </div>
+</div>
+
+
+<p class="header" id="tone_mapping">Tone mapping</p>
+    <div class="collapse">
+            <label for="fleximage_tonemap_kernel">Tonemap</label>&nbsp; &nbsp; &nbsp;
+			<select id="fleximage_tonemapkernel">
+				<option value="reinhard">reinhard</option>
+				<option value="linear">linear</option>
+				<option value="autolinear">auto linear</option>
+				<option value="contrast">contrast</option>
+				<!--<option value="maxwhite">maxwhite</option>-->
+			</select>
+			
+            <div class="reinhard fleximage_tonemapkernel" id="reinhard">
+                <div class="parameter_interface_single">
+                    <label for="fleximage_reinhard_prescale" class="label1">Prescale</label>
+                    <input type='text' id="fleximage_reinhard_prescale" size="4" class="inputfield1">
+                </div>
+                <div class="parameter_interface_single">
+                    <label for="fleximage_reinhard_postscale" class="label1">Postscale</label>
+                    <input type='text' id="fleximage_reinhard_postscale" size="4" class="inputfield1"><br>
+                </div>
+                <div class="parameter_interface_single">
+                    <label for="fleximage_reinhard_burn" class="label1">Burn</label>
+                    <input type='text' id="fleximage_reinhard_burn" size="4" class="inputfield1">
+                </div>
+			</div>
+            
+			<div class="linear fleximage_tonemapkernel" id="linear">
+                <div class="parameter_interface_single">
+                    <label for="fleximage_linear_hf_stopF" class="label1">F-stop</label>
+                    <select id="fleximage_linear_hf_stopF" class="inputfield1">
+                        <option value="0.7">0.7</option>
+                        <option value="1">1</option>
+                        <option value="1.2">1.2</option>
+                        <option value="1.4">1.4</option>
+                        <option value="1.7">1.7</option>
+                        <option value="2.4">2.4</option>
+                        <option value="2.8">2.8</option>
+                        <option value="2">2</option>
+                        <option value="3.3">3.3</option>
+                        <option value="4.8">4.8</option>
+                        <option value="4">4</option>
+                        <option value="5.6">5.6</option>
+                        <option value="6.7">6.7</option>
+                        <option value="6">6</option>
+                        <option value="9.5">9.5</option>
+                        <option value="11">11</option>
+                        <option value="13">13</option>
+                        <option value="16">16</option>
+                        <option value="19">19</option>
+                        <option value="22">22</option>
+                        <option value="27">27</option>
+                        <option value="32">32</option>
+                    </select>
+                </div>
+                <div class="parameter_interface_single">
+                    <label for="fleximage_linear_photo_exposure" class="label1">Exposure (s)</label>
+                    <select id="fleximage_linear_photo_exposure" class="inputfield1">
+                        <option value="1">8</option>
+                        <option value="1">4</option>
+                        <option value="1">2</option>
+                        <option value="1">1</option>
+                        <option value="1/2">1/2</option>
+                        <option value="1/4">1/4</option>
+                        <option value="1/8">1/8</option>
+                        <option value="1/15">1/15</option>
+                        <option value="1/30">1/30</option>
+                        <option value="1/60">1/60</option>
+                        <option value="1/125">1/125</option>
+                        <option value="1/250">1/250</option>
+                        <option value="1/500">1/500</option>
+                        <option value="1/1000">1/1000</option>
+                    </select>
+                </div>
+                <div class="parameter_interface_single">
+                    <label for="fleximage_linear_iso" class="label1">ISO</label>
+                    <select id="fleximage_linear_iso" class="inputfield1">
+                        <option value="1000">1000</option>
+                        <option value="800">800</option>
+                        <option value="640">640</option>
+                        <option value="500">500</option>
+                        <option value="400">400</option>
+                        <option value="320">320</option>
+                        <option value="250">250</option>
+                        <option value="200">200</option>
+                        <option value="160">160</option>
+                        <option value="125">125</option>
+                        <option value="100">100</option>
+                        <option value="80">80</option>
+                        <option value="64">64</option>
+                        <option value="50">50</option>
+                        <option value="40">40</option>
+                        <option value="32">32</option>
+                        <option value="25">25</option>
+                        <option value="20">20</option>
+                    </select>
+                </div>
+			</div>
+			<div class="contrast parameter_interface_single fleximage_tonemapkernel" id="contrast">
+				<label for="fleximage_contrast_ywa" class="label1">Luminance</label>
+				<input type='text' id="fleximage_contrast_ywa" size="4" class="inputfield1">
+			</div>
+			<div class="maxwhite" id="maxwhite">
+			</div>
+    </div>
+    
+        <p class="header" id="render_time">Render time</p>
+            <div class="collapse">
+                <div class="parameter_interface_single">
+                    <label for="fleximage_displayinterval" class="label1">Display interval (s)</label>
+                    <input type='text' id="fleximage_displayinterval" size="4" class="inputfield1x">
+                </div>
+                <div class="parameter_interface_single">
+                    <label for="fleximage_writeinterval" class="label1">Write interval (s)</label>
+                    <input type='text' id="fleximage_writeinterval" size="4" class="inputfield1x">
+                </div>
+                <div class="parameter_interface_single">
+                    <label for="fleximage_render_time" class="label1">Render time</label>
+                    <select id="fleximage_render_time" class="inputfield1x">
+                        <option value="infinite">infinite</option>
+                        <option value="halt_time">fixed time</option>
+                        <option value="halt_spp">fixed number of samples</option>
+                    </select>
+                </div>
+                <div id="halt_spp" class="parameter_interface_single fleximage_render_time">
+                    <label for="fleximage_haltspp" class="label1">Samples per pixel</label>
+                    <input type='text' id="fleximage_haltspp" size="4" class="inputfield1x">
+                </div>
+                <div id="halt_time" class="parameter_interface_single fleximage_render_time">
+                    <label for="fleximage_halttime" class="label1">Time (minutes)</label>
+                    <input type='text' id="fleximage_halttime" size="4" class="inputfield1x">
+                </div>
+                    
+				<!--<div>
+                 <p class="header3">Gamma</p>
+                 <label for="fleximage_use_colorspace_gamma">Colorspace gamma</label>
+                 <input type="checkbox" id="fleximage_use_colorspace_gamma">
+                 <span class="basic">
+                 <label for="fleximage_colorspace_gamma">Gamma</label>
+                 <input type='text' id="fleximage_colorspace_gamma" size="4">
+                 </span>
+                 </div>-->
+            </div>
+            
+            
+
+
+        
+        
+    <p class="header" id="image_resolution">Image resolution</p>
+		<div class="collapse">
+            <div class="parameter_interface_single">
+                <label for="aspectratio_type" class="label1">Aspect ratio</label>
+                <select id="aspectratio_type" class="singlelinedropdown">
+                    <option value="aspectratio_sketchup_view">SketchUp view</option>
+                    <option value="1.0">1:1</option>
+                    <option value="0.5">1:2</option>
+                    <option value="0.666666">2:3</option>
+                    <option value="0.75">3:4</option>
+                    <option value="0.625">5:8</option>
+                    <option value="0.5625">9:16</option>
+                    <option value="0.618034">Golden Ratio</option>
+                    <option value="aspectratio_free">Free</option>
+                    <option value="aspectratio_custom">Custom</option>
+                </select><br><br>
+            </div>
+            
+            <div id="aspectratio_sketchup_view" class="parameter_interface_single aspectratio_type">
+                <label for="aspectratio_skp_res_type" class="label1">Resolution</label>
+                <select id="aspectratio_skp_res_type" class="singlelinedropdown">
+                    <option value="aspectratio_skp_view">SketchUp view</option>
+                    <option value="aspectratio_skp_custom">Custom</option>
+                </select>
+            </div>
+            
+            <div id="aspectratio_custom" class="parameter_interface_single aspectratio_type">
+                <div class="label1">Proportion</div><div class="singlelinedropdown">
+				<input type='text' id="aspectratio_numerator" size="3"> : <input type='text' id="aspectratio_denominator" size="3">&nbsp;
+                <input type="button" id="aspectratio_flip" value="swap values"></div>
+            </div>
+            
+            <div id="aspectratio_fixed" class="parameter_interface_single aspectratio_type">
+                <select id="aspectratio_fixed_orientation" class="singlelinedropdown">
+                    <option value="ratio_landscape">Landscape</option>
+                    <option value="ratio_portrait">Portrait</option>
+                </select>
+            </div>
+            
+            <div id="aspectratio_resolution_interface" class="parameter_interface">
+				<label for="fleximage_xresolution" class="label1">Resolution x</label>
+				<input type='text' id="fleximage_xresolution" size="10" class="inputfield1">
+                <label for="fleximage_yresolution" class="label2">Resolution y</label>
+                <input type='text' id="fleximage_yresolution" size="10" class="inputfield2">
+            </div>
+            
+            <div class="parameter_interface_single aspectratio_type">
+                <label for="fleximage_resolution_percent" class="label1">Scale</label>
+                <select id="fleximage_resolution_percent" class="singlelinedropdown">
+                    <option value="800">800%</option>
+                    <option value="400">400%</option>
+                    <option value="300">300%</option>
+                    <option value="200">200%</option>
+                    <option value="150">150%</option>
+                    <option value="100">100%</option>
+                    <option value="75">75%</option>
+                    <option value="50">50%</option>
+                    <option value="40">40%</option>
+                    <option value="30">30%</option>
+                    <option value="25">25%</option>
+                    <option value="20">20%</option>
+                    <option value="10">10%</option>
+                </select>
+            </div>
+		</div>
+		
+<p class="header" id="system">System</p>
+		<div class="collapse">
+			<label for="priority">Priority:</label>
+			<select id="priority">
+				<option value="low">Very low</option>
+				<option value="belownormal">Low</option>
+				<option value="normal">Normal</option>
+				<option value="abovenormal">High</option>
+			</select>
+            <br>
+            <br>
+            <label for="geomexport">Geometry file format:</label>
+			<select id="geomexport">
+				<option value="ply">PLY, ASCII</option>
+				<option value="binply">PLY, binary</option>
+				<option value="lxo">LXO</option>
+			</select>
+			<br>
+			<br>
+            <label for="texexport">Texture export:</label>
+			<select id="texexport">
+				<option value="skp">export SketchUp textures only</option>
+				<option value="all">pack all textures</option>
+			</select>
+			<br>
+            <br>
+            <input type="checkbox" id="exp_distorted">
+            <label for="exp_distorted">export distorted textures</label>
+            <br>
+			<br>
+			Scene file export path:
+			<br>
+			<input type="text" id="export_file_path" size="46">
+			<input type="button" id="export_file_path_browse" value="Browse">
+            <br>
+            Path to LuxRender:
+            <br>
+            <input type="text" id="export_luxrender_path" size="46">
+            <input type="button" id="export_luxrender_path_browse" value="Browse"><br><br>
+            
+            <label for="runluxrender">Run LuxRender:</label>
+            <select id="runluxrender">
+                <option value="yes">Always</option>
+                <option value="ask">Ask</option>
+                <option value="no">Never</option>
+            </select><br><br>
+		</div>
+		<!--<br>
+		<br>
+		<hr>
+		<input type="button" id="reset" value="reset all settings">-->
+	</div><!--end settings_panel-->
+</body>
+</html>

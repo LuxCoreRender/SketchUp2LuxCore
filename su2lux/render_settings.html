@@ -1,0 +1,629 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+<head>
+<title>LuxRender render settings</title>
+
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="render_settings.js"></script>
+
+<link href="common.css" type="text/css" rel="stylesheet">
+<link href="render_settings.css" type="text/css" rel="stylesheet">
+ 
+</head>
+<body>
+
+<div id="presets">
+    <label for="renderpreset">Presets:</label>
+    <select id="renderpreset">
+        <option value='custom'>custom</option>
+        <!-- other presets are loaded from preset files -->
+    </select><br><br>
+    <input type="button" id="overwrite_settings_file" value="overwrite" style="width:6em">
+    <input type="button" id="save_settings_file" value="save as new" style="width:8em">
+    <input type="button" id="load_settings_file" value="load from file" style="width:9em">
+    <input type="button" id="delete_settings_file" value="delete preset" style="width:9em">
+</div>
+
+
+<div id="render_settings_panel">
+ <!--    <p class="header" id="renderersection">Renderer</p>
+	<div class="collapse">
+		<label for="renderer">Renderer</label>
+		<select id="renderer">
+			<option value="sampler">classic (default)</option>
+			<option value="hybrid">hybrid path</option>
+			<option value="sppm">SPPM (photon mapping)</option>
+			<option value="luxcore_pathcpu">LuxCore, PATHCPU (experimental)</option>
+			<option value="luxcore_pathocl">LuxCore, PATHOCL (experimental)</option>
+			<option value="luxcore_biaspathcpu">LuxCore, BIASPATHCPU (experimental)</option>
+			<option value="luxcore_biaspathocl">LuxCore, BIASPATHOCL (experimental)</option>
+			<option value="luxcore_bidircpu">LuxCore, BIDIRCPU (experimental)</option>
+			<option value="luxcore_bidircpuvm">LuxCore, BIDIRCPUVM (experimental)</option>
+		</select>
+	</div>
+</p> -->
+
+
+	<div id="integratorsection">
+	<p class="header" id="integrator">Renderer</p>
+		<div class="collapse">
+			<label for="sintegrator_type">Integrator type</label>
+			<select id="sintegrator_type"" class="sectiondropdown">
+				<option value="directlighting">direct lighting</option>
+				<option value="path">path</option>
+				<option value="bidirectional">bidirectional</option>
+				<option value="sppm">SPPM (photon mapping)</option>
+				<!-- <option value="exphotonmap">photon mapping</option> -->
+				<!-- <option value="distributedpath">distributedpath</option> commented out (unusable interface) -->
+				<!-- <option value="igi">igi</option> -->
+				<option value="luxcore_pathcpu">LuxCore, PATHCPU (experimental)</option>
+				<option value="luxcore_pathocl">LuxCore, PATHOCL (experimental)</option>
+				<option value="luxcore_biaspathcpu">LuxCore, BIASPATHCPU (experimental)</option>
+				<option value="luxcore_biaspathocl">LuxCore, BIASPATHOCL (experimental)</option>
+				<option value="luxcore_bidircpu">LuxCore, BIDIRCPU (experimental)</option>
+				<option value="luxcore_bidircpuvm">LuxCore, BIDIRCPUVM (experimental)</option>
+			</select>
+			
+			<div class="sintegrator_type sppm" id="sppm">
+				<div class="parameter_interface_single">
+					<label for="sppm_photonsampler">Photon sampler</label>
+					<select id="sppm_photonsampler">
+						<option value="halton">halton</option>
+						<option value ="amc">amc</option>
+					</select>
+				</div>
+				<div class="parameter_interface_single">
+					<label for="sppm_lookupaccel">Lookup accelerator</label>
+					<select id="sppm_lookupaccel">
+						<option value="hashgrid">hash grid</option>
+						<option value ="hybridhashgrid">hybrid hash grid</option>
+						<option value="parallelhashgrid">parallel hash grid</option>
+						<option value ="kdtree">kdtree</option>
+					</select>
+				</div>
+				
+				<div class="parameter_interface_single">
+					<label for="sppm_maxeyedepth" class="label1">Eye depth</label>
+					<input type='text' id="sppm_maxeyedepth" size="2" class="inputfield1xx">
+				</div>
+				<div class="parameter_interface_single">
+					<label for="sppm_maxphotondepth" class="label1">Photon depth</label>
+					<input type='text' id="sppm_maxphotondepth" size="2" class="inputfield1xx">
+				</div>
+				<div class="parameter_interface_single">
+					<label for="sppm_photonperpass" class="label1">Photons per pass</label>
+					<input type='text' id="sppm_photonperpass" size="8" class="inputfield1xx">
+				</div>
+				<div class="parameter_interface_single">
+					<label for="sppm_startradius" class="label1">Start radius</label>
+					<input type='text' id="sppm_startradius" size="2" class="inputfield1xx">
+				</div>
+				<div class="parameter_interface_single">
+					<label for="sppm_alpha" class="label1">Radius reduction</label>
+					<input type='text' id="sppm_alpha" size="2" class="inputfield1xx">
+				</div>
+			</div>
+			
+			<div class="sintegrator_type directlighting" id="directlighting">
+				<div class="parameter_interface_single">
+					<label for="sintegrator_direct_maxdepth" class="label1">Max depth (bounces)</label>
+					<input type='text' id="sintegrator_direct_maxdepth" size="2" class="inputfield1xx">
+				</div>
+				<div class="parameter_interface_single">
+					<label for="sintegrator_direct_shadow_ray_count" class="label1">Shadow ray count</label>
+					<input type='text' id="sintegrator_direct_shadow_ray_count" size="2" class="inputfield1xx">
+				</div>
+				<div class="parameter_interface_single">
+					<label for="sintegrator_direct_strategy" class="label1">Strategy</label>
+					<select id="sintegrator_direct_strategy" class="inputfield1xx">
+						<option value="one">one</option>
+						<option value="all">all</option>
+						<option value="auto">auto</option>
+						<option value="importance">importance</option>
+						<option value="powerimp">powerimp</option>
+						<option value="allpowerimp">allpowerimp</option>
+						<option value="logpowerimp">logpowerimp</option>
+					</select>
+				</div>
+			</div>
+			
+			<div class="sintegrator_type path luxcore_pathcpu luxcore_pathocl luxcore_biaspathcpu luxcore_biaspathocl" id="path">
+				<div class="parameter_interface_single">
+					<label for="sintegrator_path_maxdepth" class="label1">Max depth (bounces)</label>
+					<input type='text' id="sintegrator_path_maxdepth" size="2" class="inputfield1xx">
+				</div>
+				<div class="parameter_interface_single">
+					<label for="sintegrator_path_shadow_ray_count" class="label1">Shadow ray count</label>
+					<input type='text' id="sintegrator_path_shadow_ray_count" size="2" class="inputfield1xx">
+				</div>
+				<div class="parameter_interface_single">
+					<label for="sintegrator_path_strategy" class="label1">Strategy</label>
+					<select id="sintegrator_path_strategy" class="inputfield1xx">
+						<option value="one">one</option>
+						<option value="all">all</option>
+						<option value="auto">auto</option>
+						<option value="importance">importance</option>
+						<option value="powerimp">powerimp</option>
+						<option value="allpowerimp">allpowerimp</option>
+						<option value="logpowerimp">logpowerimp</option>
+					</select>
+				</div>
+				<div class="parameter_interface_single" name="path">
+					<label for="sintegrator_path_rrstrategy" class="label1">Russian roulette strategy</label>
+					<select id="sintegrator_path_rrstrategy" class="inputfield1xxx">
+						<option value="none">none</option>
+						<option value="efficiency">efficiency</option>
+						<option value="probability">probability</option>
+					</select>
+				</div>
+				<div class="parameter_interface_single sintegrator_path_rrstrategy continueprobability" id="probability">
+						<label for="sintegrator_path_rrcontinueprob" class="label1">Continue probability</label>
+						<input type='text' id="sintegrator_path_rrcontinueprob" size="2" class="inputfield1xx">
+				</div>
+				<div class="parameter_interface_single">
+					<input type="checkbox" id="sintegrator_path_include_environment">
+					<label for="sintegrator_path_include_environment">Include environment</label>
+				</div>
+			</div>
+			
+			<div class="sintegrator_type bidirectional luxcore_bidircpu luxcore_bidircpuvm" id="bidirectional">
+				<div class="parameter_interface_single">
+					<label for="sintegrator_bidir_eyedepth" class="label1">Eye depth</label>
+					<input type='text' id="sintegrator_bidir_eyedepth" size="10" class="inputfield1x">
+				</div>
+				<div class="parameter_interface_single">
+					<label for="sintegrator_bidir_eyerrthreshold" class="label1">Eye threshold</label>
+					<input type='text' id="sintegrator_bidir_eyerrthreshold" size="10" class="inputfield1x">
+				</div>
+				<div class="parameter_interface_single">
+					<label for="sintegrator_bidir_lightdepth" class="label1">Light depth</label>
+					<input type='text' id="sintegrator_bidir_lightdepth" size="10" class="inputfield1x">
+				</div>
+				<div class="parameter_interface_single">
+					<label for="sintegrator_bidir_lightthreshold" class="label1">Light threshold</label>
+					<input type='text' id="sintegrator_bidir_lightthreshold" size="10" class="inputfield1x">
+				</div>
+				<div class="parameter_interface_single">
+					<label for="sintegrator_bidir_strategy" class="label1">Strategy</label>
+					<select id="sintegrator_bidir_strategy" class="inputfield1x">
+						<option value="one">one</option>
+						<option value="all">all</option>
+						<option value="auto">auto</option>
+					</select>
+				</div>
+			</div>
+			
+			<!-- <div class="sintegrator_type" id="exphotonmap">
+				<div class="parameter_interface_single">
+					<label for="sintegrator_exphoton_renderingmode" class="label1">Light strategy</label>
+					<select id="sintegrator_exphoton_renderingmode" class="inputfield1x">
+						<option value="directlighting">direct lighting</option>
+						<option value="path">path</option>
+					</select>
+				</div>
+				<div class="parameter_interface_single">
+					<label for="sintegrator_exphoton_strategy" class="label1">Strategy</label>
+					<select id="sintegrator_exphoton_strategy" class="inputfield1x">
+						<option value="one">one</option>
+						<option value="all">all</option>
+						<option value="auto">auto</option>
+						<option value="importance">importance</option>
+						<option value="powerimp">powerimp</option>
+						<option value="allpowerimp">allpowerimp</option>
+						<option value="logpowerimp">logpowerimp</option>
+					</select>
+				</div>
+				<div class="parameter_interface_single">
+					<label for="sintegrator_exphoton_shadow_ray_count" class="label1">Shadow ray count</label>
+					<input type='text' id="sintegrator_exphoton_shadow_ray_count" size="10" class="inputfield1x">
+				</div>
+				<div class="parameter_interface_single">
+					<label for="sintegrator_exphoton_maxdepth" class="label1">Max depth</label>
+					<input type='text' id="sintegrator_exphoton_maxdepth" size="10" class="inputfield1x">
+				</div>
+				<div class="parameter_interface_single">
+					<label for="sintegrator_exphoton_maxphotondepth" class="label1">Max photon depth</label>
+					<input type='text' id="sintegrator_exphoton_maxphotondepth" size="10" class="inputfield1x">
+				</div>
+				<div class="parameter_interface_single">
+					<label for="sintegrator_exphoton_maxphotondist" class="label1">Max photon dist</label>
+					<input type='text' id="sintegrator_exphoton_maxphotondist" size="10" class="inputfield1x">
+				</div>
+				<div class="parameter_interface_single">
+					<label for="sintegrator_exphoton_nphotonsused" class="label1">Nphotons used</label>
+					<input type='text' id="sintegrator_exphoton_nphotonsused" size="10" class="inputfield1x">
+				</div>
+				<div class="parameter_interface_single">
+					<label for="sintegrator_exphoton_directphotons" class="label1">Direct photons</label>
+					<input type='text' id="sintegrator_exphoton_directphotons" size="10" class="inputfield1x">
+				</div>
+				<div class="parameter_interface_single">
+					<label for="sintegrator_exphoton_indirectphotons">Indirect photons</label>
+					<input type='text' id="sintegrator_exphoton_indirectphotons" size="10" class="inputfield1x">
+				</div>
+				<div class="parameter_interface_single">
+					<label for="sintegrator_exphoton_causticphotons">Caustic photons</label>
+					<input type='text' id="sintegrator_exphoton_causticphotons" size="10" class="inputfield1x">
+				</div>
+				<div class="parameter_interface_single" name="exphotonmap">
+					<label for="sintegrator_path_rrstrategy" class="label1">Russian roulette strategy</label>
+					<select id="sintegrator_exphoton_rrstrategy" class="inputfield1xxx">
+						<option value="none">none</option>
+						<option value="efficiency">efficiency</option>
+						<option value="probability">probability</option>
+					</select>
+				</div>
+				<div class="parameter_interface_single sintegrator_exphoton_rrstrategy continueprobability probability" id="probability">
+						<label for="sintegrator_exphoton_rrcontinueprob" class="label1">Continue probability</label>
+						<input type='text' id="sintegrator_exphoton_rrcontinueprob" size="2" class="inputfield1xx">
+				</div>
+				<input type="checkbox" id="sintegrator_exphoton_finalgather">
+				<label for="sintegrator_exphoton_finalgather">Final gathering</label>
+				<div class="collapse">
+					<div class="parameter_interface_single">
+						<label for="sintegrator_exphoton_finalgathersamples">Samples</label>
+						<input type='text' id="sintegrator_exphoton_finalgathersamples" size="10" class="inputfield1xx">
+					</div>
+					<div class="parameter_interface_single">
+						<label for="sintegrator_exphoton_gatherangle">Angle</label>
+						<input type='text' id="sintegrator_exphoton_gatherangle" size="10" class="inputfield1xx">
+					</div>
+				</div> 
+
+				<p class="header2">Debug options</p>
+				<label for="sintegrator_exphoton_dbg_enable_direct">direct lighting</label>
+				<input type="checkbox" id="sintegrator_exphoton_dbg_enable_direct">
+				<label for="sintegrator_exphoton_dbg_enable_indircaustic">indirect caustics</label>
+				<input type="checkbox" id="sintegrator_exphoton_dbg_enable_indircaustic">
+				<label for="sintegrator_exphoton_dbg_enable_indirdiffuse">indirect diffuse</label>
+				<input type="checkbox" id="sintegrator_exphoton_dbg_enable_indirdiffuse">
+				<label for="sintegrator_exphoton_dbg_enable_indirspecular">indirect specular</label>
+				<input type="checkbox" id="sintegrator_exphoton_dbg_enable_indirspecular">
+				<label for="sintegrator_exphoton_dbg_enable_radiancemap">radiance map</label>
+				<input type="checkbox" id="sintegrator_exphoton_dbg_enable_radiancemap"> 
+			</div> -->
+				
+			<!-- <div class="sintegrator_type" id="distributedpath">
+				<label for="sintegrator_distributedpath_strategy">strategy</label>
+				<select id="sintegrator_distributedpath_strategy">
+					<option value="one">one</option>
+					<option value="all">all</option>
+					<option value="auto">auto</option>
+				</select>
+				<br>
+				<label for="sintegrator_distributedpath_directsampleall">Direct All</label>
+				<input type="checkbox" id="sintegrator_distributedpath_directsampleall">
+				<label for="sintegrator_distributedpath_directsamples">Smp</label>
+				<input type='text' id="sintegrator_distributedpath_directsamples" size="1">
+				<label for="sintegrator_distributedpath_indirectsampleall">Indirect All</label>
+				<input type="checkbox" id="sintegrator_distributedpath_indirectsampleall">
+				<label for="sintegrator_distributedpath_indirectsamples">Smp</label>
+				<input type='text' id="sintegrator_distributedpath_indirectsamples" size="1">
+				<br>
+				<label for="sintegrator_distributedpath_diffusereflectdepth">Reflect</label>
+				<input type='text' id="sintegrator_distributedpath_diffusereflectdepth" size="1">
+				<label for="sintegrator_distributedpath_diffusereflectsamples">Smp</label>
+				<input type='text' id="sintegrator_distributedpath_diffusereflectsamples" size="1">
+				<label for="sintegrator_distributedpath_diffuserefractdepth">Refract</label>
+				<input type='text' id="sintegrator_distributedpath_diffuserefractdepth" size="1">
+				<label for="sintegrator_distributedpath_diffuserefractsamples">Smp</label>
+				<input type='text' id="sintegrator_distributedpath_diffuserefractsamples" size="1">
+				<label for="sintegrator_distributedpath_directdiffuse">DL</label>
+				<input type="checkbox" id="sintegrator_distributedpath_directdiffuse">
+				<label for="sintegrator_distributedpath_indirectdiffuse">IDL</label>
+				<input type="checkbox" id="sintegrator_distributedpath_indirectdiffuse">
+				<br>
+				<label for="sintegrator_distributedpath_glossyreflectdepth">Reflect</label>
+				<input type='text' id="sintegrator_distributedpath_glossyreflectdepth" size="1">
+				<label for="sintegrator_distributedpath_glossyreflectsamples">Smp</label>
+				<input type='text' id="sintegrator_distributedpath_glossyreflectsamples" size="1">
+				<label for="sintegrator_distributedpath_glossyrefractdepth">Refract</label>
+				<input type='text' id="sintegrator_distributedpath_glossyrefractdepth" size="1">
+				<label for="sintegrator_distributedpath_glossyrefractsamples">Smp</label>
+				<input type='text' id="sintegrator_distributedpath_glossyrefractsamples" size="1">
+				<label for="sintegrator_distributedpath_directglossy">DL</label>
+				<input type="checkbox" id="sintegrator_distributedpath_directglossy">
+				<label for="sintegrator_distributedpath_indirectglossy">IDL</label>
+				<input type="checkbox" id="sintegrator_distributedpath_indirectglossy">
+				<br>
+				<label for="sintegrator_distributedpath_specularreflectdepth">Specular reflect</label>
+				<input type='text' id="sintegrator_distributedpath_specularreflectdepth" size="6">
+				<label for="sintegrator_distributedpath_specularrefractdepth">Specular refract</label>
+				<input type='text' id="sintegrator_distributedpath_specularrefractdepth" size="6">
+				<p class="header2">Rejection</p>
+				<label for="sintegrator_distributedpath_reject">Enable</label>
+				<input type="checkbox" id="sintegrator_distributedpath_reject">
+				<div class="collapse">
+					<label for="sintegrator_distributedpath_diffusereflectreject">Reflect</label>
+					<input type="checkbox" id="sintegrator_distributedpath_diffusereflectreject">
+					<span class="collapse">
+						<label for="sintegrator_distributedpath_diffusereflectreject_threshold">Thr.</label>
+						<input type='text' id="sintegrator_distributedpath_diffusereflectreject_threshold" size="6">
+					</span>
+					<label for="sintegrator_distributedpath_diffuserefractreject">Refract</label>
+					<input type="checkbox" id="sintegrator_distributedpath_diffuserefractreject">
+					<span class="collapse">
+						<label for="sintegrator_distributedpath_diffuserefractreject_threshold">Thr.</label>
+						<input type='text' id="sintegrator_distributedpath_diffuserefractreject_threshold" size="6">
+					</span>
+				<br>
+					<label for="sintegrator_distributedpath_glossyreflectreject">Reflect</label>
+					<input type="checkbox" id="sintegrator_distributedpath_glossyreflectreject">
+					<span class="collapse">
+						<label for="sintegrator_distributedpath_glossyreflectreject_threshold">Thr.</label>
+						<input type='text' id="sintegrator_distributedpath_glossyreflectreject_threshold" size="6">
+					</span>
+					<label for="sintegrator_distributedpath_glossyrefractreject">Refract</label>
+					<input type="checkbox" id="sintegrator_distributedpath_glossyrefractreject">
+					<span class="collapse">
+						<label for="sintegrator_distributedpath_glossyrefractreject_threshold">Thr.</label>
+						<input type='text' id="sintegrator_distributedpath_glossyrefractreject_threshold" size="6">
+					</span>
+				</div>
+			</div> -->
+		
+			<!-- <div class="sintegrator_type" id="igi">
+				<div class="parameter_interface_single">
+					<label for="sintegrator_igi_maxdepth" class="label1">Max depth</label>
+					<input type='text' id="sintegrator_igi_maxdepth" size="2" class="inputfield1">
+				</div>
+				<div class="parameter_interface_single">
+					<label for="sintegrator_igi_nsets" class="label1">Nsets</label>
+					<input type='text' id="sintegrator_igi_nsets" size="2" class="inputfield1">
+				</div>
+				<div class="parameter_interface_single">
+					<label for="sintegrator_igi_nlights" class="label1">Nlights</label>
+					<input type='text' id="sintegrator_igi_nlights" size="2" class="inputfield1">
+				</div>
+				<div class="parameter_interface_single">
+					<label for="sintegrator_igi_mindist" class="label1">Minimal distance</label>
+					<input type='text' id="sintegrator_igi_mindist" size="2" class="inputfield1">
+				</div>
+			</div> -->
+			
+		</div> <!-- end collapse area -->
+	</div> <!-- end integrator section -->
+
+
+	<p class="header" id="sampler">Sampler</p>
+	<div class="collapse">
+			<label for="sampler_type" class="mainlabel">Sampler type</label>
+			<select id="sampler_type" class="sectiondropdown">
+				<option value="metropolis">metropolis</option>
+				<!-- <option value="erpt">erpt</option> -->
+				<option value="lowdiscrepancy">lowdiscrepancy</option>
+				<!-- <option value="random">random</option> -->
+				<option value="sobol">sobol</option>
+			</select>
+		<div class="sampler_type" id="random">
+			<select id="sampler_random_pixelsampler">
+				<option value="linear">linear</option>
+				<option value="tile">tile</option>
+				<option value="random">random</option>
+				<option value="vegas">vegas</option>
+				<option value="lowdiscrepancy">lowdiscrepancy</option>
+				<option value="hilbert">hilbert</option>
+			</select>
+			<label for="sampler_random_pixelsamples">pixel samples</label>
+			<input type='text' id="sampler_random_pixelsamples" size="10">
+		</div>
+		<div class="sampler_type" id="metropolis">
+			<div class="parameter_interface_single">
+				<label for="sampler_metropolis_largemutationprob" class="label1">Large mutation probability</label>
+				<input type='text' id="sampler_metropolis_largemutationprob" size="10" class="inputfield1xxx"><br>
+			</div>
+			<div class="parameter_interface_single">
+				<label for="sampler_metropolis_maxconsecrejects" class="label1">Max number of rejections</label>
+				<input type='text' id="sampler_metropolis_maxconsecrejects" size="10" class="inputfield1xxx"><br>
+			</div>
+			<input type="checkbox" id="sampler_metropolis_usevariance">
+			<label for="sampler_metropolis_usevariance">Use variance</label>
+		</div>
+		<div class="sampler_type" id="lowdiscrepancy">
+			<div class="parameter_interface_single">
+				<div class="label1">Pixel sampler</div>
+				<select id="sampler_lowdisc_pixelsampler" class="inputfield1w">
+					<option value="linear">linear</option>
+					<option value="tile">tile</option>
+					<option value="random">random</option>
+					<option value="vegas">vegas</option>
+					<option value="lowdiscrepancy">lowdiscrepancy</option>
+					<option value="hilbert">hilbert</option>
+				</select>
+			</div>
+			<div class="parameter_interface_single">
+				<label for="sampler_lowdisc_pixelsamples" class="label1">Samples</label>
+				<input type='text' id="sampler_lowdisc_pixelsamples" size="10" class="inputfield1">
+			</div>
+		</div>
+		<div class="sampler_type" id="erpt">
+			<label for="sampler_erpt_chainlength">chain length</label>
+			<input type='text' id="sampler_erpt_chainlength" size="10">
+		</div>
+		<div class="sampler_type" id="sobol">
+		</div>
+		<div class="parameter_interface_single noiseaware">
+			<input type="checkbox" id="sampler_noiseaware" class="noiseaware">
+			<label for="sampler_noiseaware" class="noiseaware">Noise aware</label>
+		</div>
+	</div>
+
+	<p class="header">Volume integrator</p>
+	<div class="collapse">
+		<div class="parameter_interface_single">
+			<label for="volume_integrator_type">
+				<span class="label">Volume integrator type</span>
+				<select id="volume_integrator_type">
+					<option value="none">none</option>
+					<option value="emission">emission</option>
+					<option value="single">single</option>
+					<option value="multi">multi</option>
+				</select>
+			</label>
+		</div>
+		<div class="parameter_interface_single">
+			<label for="volume_integrator_stepsize">
+				<span class="label" class="label1">step size</span>
+				<input type="text" id="volume_integrator_stepsize" size="4" class="inputfield1">
+			</label>
+		</div>
+	</div>
+
+	<p class="header" id="pixelfilter">Pixel Filter</p>
+	<div class="collapse">
+		<label for="pixelfilter_type">Filter type</label>
+		<select id="pixelfilter_type">
+			<option value="blackmanharris">blackman-harris</option>
+			<option value="box">box</option>
+			<option value="gaussian">gaussian</option>
+			<option value="mitchell">mitchell</option>
+			<option value="sinc">sinc</option>
+		</select>
+		<div class="pixelfilter_type" id="blackmanharris">
+			<div class="parameter_interface_single">
+				<label for="pixelfilter_blackmanharris_xwidth" class="label1">X width</label>
+				<input type="text" id="pixelfilter_blackmanharris_xwidth" size="4" class="inputfield1">
+					</div>
+			<div class="parameter_interface_single">
+				<label for="pixelfilter_blackmanharris_ywidth" class="label1">Y width</label>
+				<input type="text" id="pixelfilter_blackmanharris_ywidth" size="4" class="inputfield1">
+					</div>
+		</div>
+		<div class="pixelfilter_type" id="box">
+			<div class="parameter_interface_single">
+				<label for="pixelfilter_box_xwidth" class="label1">X width</label>
+				<input type="text" id="pixelfilter_box_xwidth" size="4" class="inputfield1">
+			</div>
+			<div class="parameter_interface_single">
+				<label for="pixelfilter_box_ywidth" class="label1">Y width</label>
+				<input type="text" id="pixelfilter_box_ywidth" size="4" class="inputfield1">
+			</div>
+		</div>
+		<div class="pixelfilter_type" id="gaussian">
+			<div class="parameter_interface_single">
+				<label for="pixelfilter_gaussian_xwidth" class="label1">X width</label>
+				<input type="text" id="pixelfilter_gaussian_xwidth" size="4" class="inputfield1">
+			</div>
+			<div class="parameter_interface_single">
+				<label for="pixelfilter_gaussian_ywidth" class="label1">Y width</label>
+				<input type="text" id="pixelfilter_gaussian_ywidth" size="4" class="inputfield1">
+			</div>
+			<div class="parameter_interface_single">
+				<label for="pixelfilter_gaussian_alpha" class="label1">alpha</label>
+				<input type="text" id="pixelfilter_gaussian_alpha" size="4" class="inputfield1">
+			</div>
+		</div>
+		<div class="pixelfilter_type" id="mitchell">
+			<div class="parameter_interface_single">
+				<label for="pixelfilter_mitchell_xwidth" class="label1">X width</label>
+				<input type="text" id="pixelfilter_mitchell_xwidth" size="8" class="inputfield1">
+			</div>
+			<div class="parameter_interface_single">
+				<label for="pixelfilter_mitchell_ywidth" class="label1">Y width</label>
+				<input type="text" id="pixelfilter_mitchell_ywidth" size="8" class="inputfield1">
+			</div>
+			<div class="parameter_interface_single">
+				<label for="pixelfilter_mitchell_B" class="label1">B</label>
+				<input type="text" id="pixelfilter_mitchell_B" size="8" class="inputfield1">
+			 </div>
+			<div class="parameter_interface_single">
+				<label for="pixelfilter_mitchell_C" class="label1">C</label>
+				<input type="text" id="pixelfilter_mitchell_C" size="8" class="inputfield1">
+			</div>
+			<!-- supersample should always be on
+			 <div class="parameter_interface_single">
+				<input type="checkbox" id="pixelfilter_mitchell_supersample">
+				<label for="pixelfilter_mitchell_supersample">Supersample</label>
+			</div> -->
+					
+		</div>
+		<div class="pixelfilter_type" id="sinc">
+			<div class="parameter_interface_single">
+				<label for="pixelfilter_sinc_xwidth" class="label1">X width</label>
+				<input type="text" id="pixelfilter_sinc_xwidth" size="4" class="inputfield1">
+			</div>
+			<div class="parameter_interface_single">
+				<label for="pixelfilter_sinc_ywidth" class="label1">Y width</label>
+				<input type="text" id="pixelfilter_sinc_ywidth" size="4" class="inputfield1">
+			</div>
+			<div class="parameter_interface_single">
+				<label for="pixelfilter_sinc_tau" class="label1">Tau</label>
+				<input type="text" id="pixelfilter_sinc_tau" size="4" class="inputfield1">
+			</div>
+		</div>
+		<div class="pixelfilter_type" id="triangle">
+			<div class="parameter_interface_single">
+				<label for="pixelfilter_triangle_xwidth" class="label1">X width</label>
+				<input type="text" id="pixelfilter_triangle_xwidth" size="4" class="inputfield1">
+			</div>
+			<div class="parameter_interface_single">
+				<label for="pixelfilter_triangle_ywidth" class="label1">Y width</label>
+				<input type="text" id="pixelfilter_triangle_ywidth" size="4" class="inputfield1">
+			</div>
+		</div>
+	</div>
+
+	<p class="header" id="accelerator">Accelerator</p>
+		<div class="collapse">
+			<label for="accelerator_type">Accelerator type</label>
+			<select id="accelerator_type">
+				<option value="none">none</option>
+				<option value="kdtree">k-d tree</option>
+				<option value="grid">grid</option>
+				<option value="bvh">bvh</option>
+				<option value="qbvh">qbvh</option>
+			</select>
+			<div class="accelerator_type" id="kdtree">
+				<div class="parameter_interface_single">
+					<label for="kdtree_intersectcost" class="label1">Intersection cost</label>
+					<input type='text' id="kdtree_intersectcost" size="4" class="inputfield1xxx">
+				</div>
+				<div class="parameter_interface_single">
+					<label for="kdtree_traversalcost" class="label1">Traversal cost</label>
+					<input type='text' id="kdtree_traversalcost" size="4" class="inputfield1xxx">
+				</div>
+				<div class="parameter_interface_single">
+					<label for="kdtree_emptybonus" class="label1">Empty bonus</label>
+					<input type='text' id="kdtree_emptybonus" size="4" class="inputfield1xxx">
+				</div>
+				<div class="parameter_interface_single">
+					<label for="kdtree_maxprims" class="label1">Max primitives per volume</label>
+					<input type='text' id="kdtree_maxprims" size="4" class="inputfield1xxx">
+				</div>
+				<div class="parameter_interface_single">
+					<label for="kdtree_maxdepth" class="label1">Max tree depth</label>
+					<input type='text' id="kdtree_maxdepth" size="4" class="inputfield1xxx">
+				</div>
+			</div>
+			<div class="accelerator_type" id="grid">
+				<div class="parameter_interface_single">
+					<input type="checkbox" id="grid_refineimmediately">
+					<label for="grid_refineimmediately">refine immediately</label>
+				</div>
+			</div>
+			<div class="accelerator_type" id="bvh">
+			</div>
+			<div class="accelerator_type" id="qbvh">
+				<div class="parameter_interface_single">
+					<label for="qbvh_maxprimsperleaf" class="label1">Max primitives per leaf</label>
+					<input type='text' id="qbvh_maxprimsperleaf" size="4" class="inputfield1xxx">
+				</div>
+				<div class="parameter_interface_single">
+					<label for="qbvh_fullsweepthreshold" class="label1">Sweep threshold</label>
+					<input type='text' id="qbvh_fullsweepthreshold" size="4" class="inputfield1xxx">
+				</div>
+				<div class="parameter_interface_single">
+					<label for="qbvh_skip_factor" class="label1">Skip factor</label>
+					<input type='text' id="qbvh_skip_factor" size="4" class="inputfield1xxx">
+				</div>
+			</div>
+		</div>
+
+			
+		<!--<hr>
+		<input type="button" id="reset" value="reset all settings">-->
+	</div><!-- end settings_panel-->
+</div><!-- end render settings -->
+</body>
+</html>

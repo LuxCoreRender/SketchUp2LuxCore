@@ -1,0 +1,6 @@
+# Materials File
+
+MakeNamedMaterial "Material"
+	"color Kd" [0.0 0.4 0.8]
+	"float sigma" [0.000000000000000]
+	"string type" ["matte"]

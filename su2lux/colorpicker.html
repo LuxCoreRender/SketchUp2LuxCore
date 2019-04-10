@@ -1,0 +1,137 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+ <title>Farbtastic</title>
+ <script type="text/javascript" src="jquery.js"></script>
+ <script type="text/javascript" src="farbtastic.js"></script>
+ <link rel="stylesheet" href="common.css" type="text/css" />
+ <link rel="stylesheet" href="farbtastic.css" type="text/css" />
+ 
+ 
+<style>
+#rgbfield{
+	position: absolute;
+	top: 20px;
+	left: 210px;
+}.kdr {
+    position: absolute;
+    left: 10pt;
+    top: 12pt;
+}
+
+.kdg {
+    position: absolute;
+    left: 10pt;
+    top: 35pt;
+}
+
+.kdb {
+    position: absolute;
+    left: 10pt;
+    top: 58pt;
+}
+
+.kdrvalue{
+    position: absolute;
+    left: 52pt;
+    top: 8pt;
+}
+
+.kdgvalue{
+    position: absolute;
+    left: 52pt;
+    top: 31pt;
+}
+
+.kdbvalue{
+    position: absolute;
+    left: 52pt;
+    top: 54pt;
+}
+</style>
+ 
+ 
+ 
+ <script type="text/javascript" charset="utf-8">
+$(document).ready(
+	function() {
+		window.location = 'skp:provide_color';
+		
+		
+		$("#red_field").change( // change red color field
+			function()
+			{	
+				hex = Math.floor(255 * this.value).toString(16);
+				if (hex.length < 2){hex = "0" + hex;}
+				colorcopy = document.getElementById("color").value;
+				colorcopy = colorcopy.substr(0,1) + hex + colorcopy.substr(3,7);
+				document.getElementById("color").value = colorcopy;
+				//alert($.farbtastic('#picker').color); // returns the value string of the hidden object
+				$.farbtastic('#picker').setColor(colorcopy);
+				window.location = 'skp:colorfield_red_update@' +this.value;
+				
+			}
+		)
+		$("#green_field").change( // change green color field
+			function()
+			{
+				hex = Math.floor(255 * this.value).toString(16);
+				if (hex.length < 2){ hex = "0" + hex;}
+				colorcopy = document.getElementById("color").value;
+				colorcopy = colorcopy.substr(0,3) + hex + colorcopy.substr(5,7);
+				document.getElementById("color").value = colorcopy;
+				$.farbtastic('#picker').setColor(colorcopy);
+				window.location = 'skp:colorfield_green_update@' +this.value;
+			}
+		)
+		$("#blue_field").change( // change red color field
+			function()
+			{
+				hex = Math.floor(255 * this.value).toString(16);
+				if (hex.length < 2){ hex = "0" + hex;}
+				colorcopy = document.getElementById("color").value;
+				colorcopy = colorcopy.substr(0,5) + hex;
+				document.getElementById("color").value = colorcopy;
+				$.farbtastic('#picker').setColor(colorcopy);
+				window.location = 'skp:colorfield_blue_update@' +this.value;
+			}
+		)
+	}
+	
+);
+
+
+function init_color(passedcolor){
+	document.getElementById("color").value= passedcolor;
+    $('#picker').farbtastic('#color'); // initialises farbtastic with the colour set as in this document's hidden input div
+}
+    
+function init_rgb_fields(rvalue,gvalue,bvalue){
+	document.getElementById("red_field").value = rvalue;
+	document.getElementById("green_field").value = gvalue;
+	document.getElementById("blue_field").value = bvalue;
+}
+  
+  
+ </script>
+</head>
+<body>
+
+<form action="" style="" height="260px" height: 260px>
+<div id="picker"></div>
+<div class="form-item" id="invisibleform"><label for="color">&nbsp;</label>
+<input type="text" id="color" name="color" value="#123456" /></div>
+</form>
+
+<div id="rgbfield">
+<label for="red_field" class="kdr">Red</label><input type='text' id="red_field" size="6" class="kdrvalue">
+<label for="green_field" class="kdg">Green</label><input type='text' id="green_field" size="6" class="kdgvalue">
+<label for="blue_field" class="kdb">Blue</label><input type='text' id="blue_field" size="6" class="kdbvalue">
+</div>
+
+
+</body>
+</html>
+
+

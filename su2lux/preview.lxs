@@ -1,0 +1,75 @@
+# Main Scene File
+
+Renderer "sampler"
+
+Sampler "metropolis"
+	"float largemutationprob" [0.400000005960464]
+	"bool usevariance" ["false"]
+
+Accelerator "qbvh"
+
+SurfaceIntegrator "bidirectional"
+	"integer eyedepth" [48]
+	"integer lightdepth" [48]
+
+VolumeIntegrator "multi"
+	"float stepsize" [1.000000000000000]
+
+PixelFilter "mitchell"
+	"bool supersample" ["true"]
+
+LookAt 3.938482 -3.580219 2.683327 3.283620 -2.969553 2.238082 -0.317370 0.312469 0.895343
+
+Camera "perspective"
+	"float fov" [49.134342077604479]
+	"float screenwindow" [-1.000000000000000 1.000000000000000 -1.000000000000000 1.000000000000000]
+	"float shutteropen" [0.000000000000000]
+	"float shutterclose" [0.041666666666667]
+	"bool autofocus" ["true"]
+
+Film "fleximage"
+	"integer xresolution" [100]
+	"integer yresolution" [100]
+	"float gamma" [2.200000000000000]
+	"float colorspace_white" [0.314275000000000 0.329411000000000]
+	"float colorspace_red" [0.630000000000000 0.340000000000000]
+	"float colorspace_green" [0.310000000000000 0.595000000000000]
+	"float colorspace_blue" [0.155000000000000 0.070000000000000]
+	"string filename" ["preview"]
+	"bool write_resume_flm" ["false"]
+	"bool restart_resume_flm" ["false"]
+	"bool write_exr_applyimaging" ["true"]
+	"bool write_exr" ["false"]
+	"bool write_png" ["true"]
+	"string write_png_channels" ["RGB"]
+	"bool write_tga" ["false"]
+	"string ldr_clamp_method" ["lum"]
+	"integer displayinterval" [10]
+	"integer writeinterval" [180]
+	"integer halttime" [5]
+	"string tonemapkernel" ["reinhard"]
+	"float reinhard_prescale" [1.000000000000000]
+	"float reinhard_postscale" [1.200000047683716]
+	"float reinhard_burn" [6.000000000000000]
+
+WorldBegin
+
+Include "preview.lxm"
+
+Include "preview.lxo"
+
+TransformBegin #  "Lamp"
+
+Transform [-0.290864646434784 0.955171167850494 -0.055189058184624 0.000000000000000 -0.771100819110870 -0.199883356690407 0.604524731636047 0.000000000000000 0.566393196582794 0.218391194939613 0.794672250747681 0.000000000000000 4.076245307922363 1.005453944206238 5.903861999511719 1.000000000000000]
+
+LightGroup "default"
+
+LightSource "point"
+	"float gain" [1.000000000000000]
+	"float importance" [1.000000000000000]
+	"color L" [0.80000001 0.80000001 0.80000001]
+	"bool flipz" ["true"]
+	"point from" [0.000000000000000 0.000000000000000 0.000000000000000]
+
+TransformEnd # ""
+WorldEnd
