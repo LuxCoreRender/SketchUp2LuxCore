@@ -1400,7 +1400,7 @@ class LuxrenderExport
 			ply_file.puts "ply"
             ply_file.puts "format binary_little_endian 1.0"
         else
-			ply_file = File.new(ply_path, "w")
+			ply_file = File.new(ply_path, "wb")#fix line end issue 
 			ply_file.puts "ply"
             ply_file.puts "format ascii 1.0"
         end
