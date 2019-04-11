@@ -59,7 +59,7 @@ class LuxrenderExport
                 out.puts "Renderer \"sppm\""
             when "luxcore_pathcpu"
                 out.puts "Renderer \"luxcore\""
-                out.puts "\t\"string config\" [\"opencl.gpu.use = 1\" \"opencl.cpu.use = 1\" \"renderengine.type = PATHCPU\"  \"accelerator.type = AUTO\"]"
+                out.puts "\t\"string config\" [\"opencl.gpu.use = 0\" \"opencl.cpu.use = 1\" \"renderengine.type = PATHCPU\"  \"accelerator.type = AUTO\"]"
             when "luxcore_pathocl"
                 out.puts "Renderer \"luxcore\""
                 out.puts "\t\"string config\" [\"opencl.gpu.use = 1\" \"opencl.cpu.use = 1\" \"renderengine.type = PATHOCL\" \"accelerator.type = AUTO\"]"
