@@ -7,7 +7,8 @@ Requirements:
 You can find Sketchup 2017 Make here:
 https://help.sketchup.com/en/downloading-older-versions
  
- LuxCoreRender daily build as of 11th April 2019
+LuxCoreRender daily build as of 11th April 2019:
+https://github.com/LuxCoreRender/LuxCore/releases
 
  Current status:
  
