@@ -502,11 +502,12 @@ class LuxrenderMaterialEditor
 			# start rendering preview using luxconsole
 			@filename = File.join(preview_path, SU2LUX.sanitize_path(Sketchup.active_model.title) + "_" + active_material_name + ".png")
 			luxconsole_path = SU2LUX.get_luxrender_console_path()
+			model_name =SU2LUX.sanitize_path(Sketchup.active_model.title)
 			@time_out = @lrs.preview_time.to_f + 5
 			@retry_interval = 0.5
-			@luxconsole_options = " -d "
-			pipe = IO.popen("\"" + luxconsole_path + "\"" + @luxconsole_options + "\"" + preview_path + "/\" \""+ SU2LUX.sanitize_path(Sketchup.active_model.title)+ " _" + active_material_name + ".lxs" + "\"" + " -D \"batch.halttime\"" +" \"" + timeout +"\""+ " -D \"film.outputs.0.filename\"" +" \""+ SU2LUX.sanitize_path(Sketchup.active_model.title) + "_" + active_material_name + ".png" +"\"","r") # start rendering
-            puts ("\"" + luxconsole_path + "\"" + @luxconsole_options + "\"" + preview_path + "/\" \"" + " _" + active_material_name + ".lxs" + "\"" + " -D \"batch.halttime\"" +" \"" + timeout +"\""+ " -D \"film.outputs.0.filename\"" +" \"" + "_" + active_material_name + ".png" +"\"")
+			@luxconsole_options = " console -d "
+			pipe = IO.popen("python " +"\"" + luxconsole_path + "\"" + @luxconsole_options + "\"" + preview_path + "/\" \""+model_name + " _" + active_material_name + ".lxs" + "\"" + " -D \"film.outputs.0.filename\"" +" \""+ model_name + "_" + active_material_name + ".png" +"\"","r") # start rendering
+            puts ("python " +"\"" + luxconsole_path + "\"" + @luxconsole_options + "\"" + preview_path + "/\" \""+ model_name + " _" + active_material_name + ".lxs" + "\"" + " -D \"film.outputs.0.filename\"" +" \""+ model_name + "_" + active_material_name + ".png" +"\"")
 			
 			# wait for rendering to get ready, then update image
 			@times_waited = 0.0
