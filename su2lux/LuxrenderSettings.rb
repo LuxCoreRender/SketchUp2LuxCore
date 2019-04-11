@@ -332,7 +332,7 @@ class LuxrenderSettings
 		############   System   ############
 		'runluxrender' => "ask",
 		'texexport' => "skp",
-		'exp_distorted' => true, # export distorted textures
+		'exp_distorted' => false, # export distorted textures
 		'export_file_path' => "",
 		'export_luxrender_path' => "",
 		'geomexport' => 'ply',
