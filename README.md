@@ -12,6 +12,13 @@ https://help.sketchup.com/en/downloading-older-versions
  Current status:
  
  I'm still updating files!
+ 
+Things to do:
+
+ Camera Fov totally wrong, exported values don't match the Sketchup view
+ 
+Render viewer
+
 
 
 
