@@ -119,7 +119,7 @@ module SU2LUX
 		
         # create folder and files needed for material preview
         Dir.mkdir(@material_preview_path) unless File.exists?(@material_preview_path)
-		required_files = ["preview.lxs01", "preview.lxs02", "preview.lxs03", "ansi.txt"]
+		required_files = ["preview.lxs01", "preview.lxs02", "preview.lxs03", "ansi.txt","Sphere.ply","Plane_001.ply","Plane_002.ply","Plane_003.ply","grid.png", "Materials.lxm","Geometry.lxo"]
 		folder_path = File.dirname(File.expand_path(__FILE__))
 		if folder_path.respond_to?(:force_encoding)
 		  folder_path.force_encoding("UTF-8")
