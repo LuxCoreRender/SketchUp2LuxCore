@@ -473,8 +473,8 @@ class LuxrenderMaterialEditor
 			puts "finished texture output for material preview"
 			
 			# generate preview lxs file
-			lxs_path = File.join(preview_path, SU2LUX.sanitize_path(Sketchup.active_model.title) + "_" + active_material_name + ".lxs")
-			
+			lxs_path = File.join( preview_path , SU2LUX.sanitize_path(Sketchup.active_model.title)  + " _" + active_material_name + ".lxs" )
+			puts ( preview_path )
 			base_file_2 = File.join(preview_path, "ansi.txt")
 			FileUtils.copy_file(base_file_2, lxs_path)
 			generated_lxs_file = File.new(lxs_path, "a")
@@ -498,15 +498,15 @@ class LuxrenderMaterialEditor
             generated_lxs_file.puts("AttributeEnd")
             generated_lxs_file.puts("WorldEnd")
 			generated_lxs_file.close
-            
+            timeout =@lrs.preview_time.to_s
 			# start rendering preview using luxconsole
 			@filename = File.join(preview_path, SU2LUX.sanitize_path(Sketchup.active_model.title) + "_" + active_material_name + ".png")
 			luxconsole_path = SU2LUX.get_luxrender_console_path()
 			@time_out = @lrs.preview_time.to_f + 5
 			@retry_interval = 0.5
-			@luxconsole_options = " -x "
-			pipe = IO.popen("\"" + luxconsole_path + "\"" + @luxconsole_options + " \"" + lxs_path + "\"","r") # start rendering
-            puts ("\"" + luxconsole_path + "\"" + @luxconsole_options + " \"" + lxs_path + "\"")
+			@luxconsole_options = " -d "
+			pipe = IO.popen("\"" + luxconsole_path + "\"" + @luxconsole_options + "\"" + preview_path + "/\" \""+ SU2LUX.sanitize_path(Sketchup.active_model.title)+ " _" + active_material_name + ".lxs" + "\"" + " -D \"batch.halttime\"" +" \"" + timeout +"\""+ " -D \"film.outputs.0.filename\"" +" \""+ SU2LUX.sanitize_path(Sketchup.active_model.title) + "_" + active_material_name + ".png" +"\"","r") # start rendering
+            puts ("\"" + luxconsole_path + "\"" + @luxconsole_options + "\"" + preview_path + "/\" \"" + " _" + active_material_name + ".lxs" + "\"" + " -D \"batch.halttime\"" +" \"" + timeout +"\""+ " -D \"film.outputs.0.filename\"" +" \"" + "_" + active_material_name + ".png" +"\"")
 			
 			# wait for rendering to get ready, then update image
 			@times_waited = 0.0
