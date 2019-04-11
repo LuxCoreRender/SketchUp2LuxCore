@@ -643,6 +643,7 @@ module SU2LUX
 		Dir.chdir(File.dirname(lrs.export_luxrender_path))
 		export_path = File.join(File.dirname(lrs.export_file_path), SU2LUX.sanitize_path(File.basename(lrs.export_file_path))) # SU2LUX.sanitize_path("#{lrs.export_file_path}")
 		export_path = File.join(export_path.split(@os_separator))
+		export_dir = File.dirname(lrs.export_file_path)
 		export_file=File.basename(lrs.export_file_path)
 		#puts export_path
 		if (ENV['OS'] =~ /windows/i)

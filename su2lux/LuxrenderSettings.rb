@@ -299,13 +299,13 @@ class LuxrenderSettings
 		'fleximage_colorspace_blue_y' => 0.07, #GUI
 		'fleximage_colorspace_white_x' => 0.314275, #GUI
 		'fleximage_colorspace_white_y' => 0.329411, #GUI
-		'fleximage_tonemapkernel' => 'reinhard',
+		'fleximage_tonemapkernel' => 'autolinear',
 		'fleximage_reinhard_prescale' => 1.0,
 		'fleximage_reinhard_postscale' => 1.0,
 		'fleximage_reinhard_burn' => 0.5,
-		'fleximage_linear_sensitivity' => 50.0,
-		'fleximage_linear_exposure' => 1.0,
-		'fleximage_linear_fstop' => 2.8,
+		'fleximage_linear_sensitivity' => 100.0,
+		'fleximage_linear_exposure' =>0.001,
+		'fleximage_linear_fstop' => 8.0,
 		'fleximage_linear_gamma' => 2.2,
 		'fleximage_contrast_ywa' => 1.0,
 		'fleximage_cameraresponse' => "",
