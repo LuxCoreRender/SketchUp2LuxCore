@@ -9,8 +9,8 @@ class OSSpecific
 	def initialize
 		@variables = {
 			"default_save_folder" => ENV["USERPROFILE"].gsub(File::ALT_SEPARATOR,File::SEPARATOR),
-			"luxrender_filename" => "luxrender.exe",
-            "luxconsole_filename" => "luxconsole.exe",
+			"luxrender_filename" => "luxcoreui.exe",
+            "luxconsole_filename" => "luxcoreconsole.exe",
 			"path_separator" => "\\",
 			"material_preview_path" => File.join(ENV['APPDATA'], "LuxRender").gsub(File::ALT_SEPARATOR,File::SEPARATOR),
             "settings_path" => File.join(ENV['APPDATA'],"LuxRender","LuxRender_settings_presets").gsub(File::ALT_SEPARATOR,File::SEPARATOR)
