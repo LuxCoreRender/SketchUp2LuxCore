@@ -5,7 +5,7 @@ Requirements:
 
  Sketchup(tested with Sketchup2014 and 2017)
  
- luxcoreui.exe and luxcoreconsole.exe(Currently I'm waiting for the most recent python fixes so I don't need to use luxcoreconsole.exe}
+ LuxCoreRender daily build as of 11th April 2019
 
  Current status:
  
