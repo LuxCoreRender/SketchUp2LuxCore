@@ -21,4 +21,4 @@ Add the plugin files to your Sketchup plugin directory, on Windows and Sketchup 
 C:\Users\username\AppData\Roaming\SketchUp\SketchUp 2017\SketchUp\Plugins   
 Download and extract the LuxCoreRender archive so its somewhere easy to find.   
 When start Sketchup you need to add the path to luxcoreui.exe; select the "Scene Settings Editor"   
-![Path Settings](luxsettings.jpg?raw=true "Path Settings")
+![Path Settings](SketchUp2LuxCore\luxsettings.jpg)
