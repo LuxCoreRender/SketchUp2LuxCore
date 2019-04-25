@@ -266,6 +266,7 @@ module SU2LUX
 		lxs_file.puts 'WorldBegin'
 		lxs_file.puts "Include \"" + file_basename + SU2LUX::SUFFIX_DATAFOLDER + '/' + file_basename + SUFFIX_MATERIAL + "\"\n\n"
 		lxs_file.puts "Include \"" + file_basename + SU2LUX::SUFFIX_DATAFOLDER + '/' + file_basename + SUFFIX_OBJECT + "\"\n\n"
+		#lxs_file.puts "Exterior \"volume_1\"\n\n"
 		le.export_light(lxs_file) # sun/environment lights
 		lxs_file.puts 'WorldEnd'
 		lxs_file.close

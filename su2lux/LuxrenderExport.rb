@@ -771,6 +771,7 @@ class LuxrenderExport
 		volume << "\t\"float stepsize\" [#{"%.6f" %(@lrs.volume_integrator_stepsize)}]\n"
 		return volume
 	end
+	
 
 	def export_light(out)
 		sun_direction = Sketchup.active_model.shadow_info['SunDirection']
@@ -788,6 +789,7 @@ class LuxrenderExport
             when 'environmentcolor'
 				out.puts "\tLightGroup \"#{@lrs.environment_infinite_lightgroup}\""
 		end
+		
 		out.puts "AttributeBegin"
 		case @lrs.environment_light_type
 			when 'sunsky'
@@ -1684,9 +1686,9 @@ class LuxrenderExport
 				out.puts "\t \"color sigma_a\" [" + absorption.to_s + "]"
 				out.puts "\t \"color sigma_s\" [" + scattering.to_s + "]"
 				if (volumeParameterHash["g"][1].class == String)
-					out.puts "\t \"float g\" [" + volumeParameterHash["g"][1].split(",").map{|s| s.to_f}.join(" ") + "]"
+					out.puts "\t \"color g\" [" + volumeParameterHash["g"][1].split(",").map{|s| s.to_f}.join(" ") + "]"
 				else
-					out.puts "\t \"float g\" [" + volumeParameterHash["g"][1].join(" ") + "]"
+					out.puts "\t \"color g\" [" + volumeParameterHash["g"][1].join(" ") + "]"
 				end
 			when "heterogeneous"
 				scattering = volumeParameterHash["vol_scattering_swatch"][1]
@@ -1695,9 +1697,9 @@ class LuxrenderExport
 				out.puts "\t \"color sigma_a\" [" + absorption.to_s + "]"
 				out.puts "\t \"color sigma_s\" [" + scattering.to_s + "]"
 				if (volumeParameterHash["g"][1].class == String)
-					out.puts "\t \"float g\" [" + volumeParameterHash["g"][1].split(",").map{|s| s.to_f}.join(" ") + "]"
+					out.puts "\t \"color g\" [" + volumeParameterHash["g"][1].split(",").map{|s| s.to_f}.join(" ") + "]"
 				else
-					out.puts "\t \"float g\" [" + volumeParameterHash["g"][1].join(" ") + "]"
+					out.puts "\t \"color g\" [" + volumeParameterHash["g"][1].join(" ") + "]"
 				end
 				out.puts "\t \"float stepsize\" [" + volumeParameterHash["stepsize"][1].to_s + "]"
 		end
@@ -2193,7 +2195,7 @@ class LuxrenderExport
 				matdefinition <<  pre
 				matdefinition <<  matnamecomment
 				matdefinition <<  matdeclaration_statement1
-				matdefinition <<  '"string type" ["null"]'
+				matdefinition <<  '"string type" ["matte"]'
 				matdefinition <<  "\n"
 			else
 				# write reference to base material, use mix material as a workaround

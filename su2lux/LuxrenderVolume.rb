@@ -24,8 +24,8 @@ class LuxrenderVolume
 	{
 		# texture types, data format: [texture parameter name, parameter type, default value]
 		'clear' => {"volume_type"=>["string","clear"],"fresnel"=>["float",1.4],"vol_absorption_swatch"=>["color",[0.01,0.01,0.01]],"absorption_scale"=>["float",10.0]},
-		'homogeneous' => {"volume_type"=>["string","homogeneous"],"fresnel"=>["float",1.4],"vol_absorption_swatch"=>["color",[0.0,0.0,0.0]],"absorption_scale"=>["float",10.0],"vol_scattering_swatch"=>["color",[0.0,0.0,0.0]],"scattering_scale"=>["float",10.0],"g"=>["float",[0.0,0.0,0.0]]},
-		'heterogeneous' => {"volume_type"=>["string","heterogeneous"],"fresnel"=>["float",1.4],"vol_absorption_swatch"=>["color",[0.0,0.0,0.0]],"absorption_scale"=>["float",10.0],"vol_scattering_swatch"=>["color",[0.0,0.0,0.0]],"scattering_scale"=>["float",10.0],"g"=>["float",[0.0,0.0,0.0]],"stepsize"=>["float",1.0]}		
+		'homogeneous' => {"volume_type"=>["string","homogeneous"],"fresnel"=>["float",1.4],"vol_absorption_swatch"=>["color",[0.0,0.0,0.0]],"absorption_scale"=>["float",10.0],"vol_scattering_swatch"=>["color",[0.0,0.0,0.0]],"scattering_scale"=>["float",10.0],"g"=>["color",[0.0,0.0,0.0]]},
+		'heterogeneous' => {"volume_type"=>["string","heterogeneous"],"fresnel"=>["float",1.4],"vol_absorption_swatch"=>["color",[0.0,0.0,0.0]],"absorption_scale"=>["float",10.0],"vol_scattering_swatch"=>["color",[0.0,0.0,0.0]],"scattering_scale"=>["float",10.0],"g"=>["color",[0.0,0.0,0.0]],"stepsize"=>["float",1.0]}		
 	}
 		
 	def initialize(createNew, parentEditor, matEditor, lrs, passedName, passedParameter = "") # passedParameter is volume type: clear, homogeneous, heterogeneous

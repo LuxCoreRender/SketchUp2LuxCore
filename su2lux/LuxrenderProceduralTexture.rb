@@ -234,7 +234,7 @@ class LuxrenderProceduralTexture
 			sX = @textureDictionary.get_attribute(name, "vectorscaleX", 1.0).to_s
 			sY = @textureDictionary.get_attribute(name, "vectorscaleY", 1.0).to_s
 			sZ = @textureDictionary.get_attribute(name, "vectorscaleZ", 1.0).to_s
-			transformList << '"vector scale" [' + sX + ' ' + sY + ' ' + sZ + ']'
+			transformList << '"integer scale" [1]' #+ sX + ' ' + sY + ' ' + sZ + ']'
 		end
 		return transformList
 	end
