@@ -123,7 +123,7 @@ class LuxrenderMaterial
 		'light_temperature' => 6500.0,
 		'light_power' => 100.0,
 		'light_efficacy' => 17.0,
-		'light_gain' => 1000.0,
+		'light_gain' => 1.0,
         'lightbase' => 'invisible',
 		'ies_path' => '',
 

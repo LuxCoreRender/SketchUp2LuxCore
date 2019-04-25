@@ -318,7 +318,7 @@ class LuxrenderSettings
 		'fleximage_linear_use_half_stop' => "false",
 		'fleximage_linear_hf_stopF' => 2.8,
 		'fleximage_linear_hf_stopT' => 3.3,
-		'fleximage_linear_iso' => "100",
+		'fleximage_linear_iso' => "200",
 		'fleximage_use_colorspace_preset' => true,
 		'fleximage_use_colorspace_whitepoint' => true,
 		'fleximage_use_colorspace_gamma' => true,
