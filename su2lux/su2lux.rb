@@ -626,7 +626,7 @@ module SU2LUX
     #
     ##
     def SU2LUX.luxrender_path_valid?(luxrender_path)
-        (! luxrender_path.nil?  and (File.basename(luxrender_path).upcase.include?("LUXCOREUI"))) # and File.exist?(eval(luxrender_path))
+        (! luxrender_path.nil?  and (File.basename(luxrender_path).upcase.include?("LUSUVIEWER"))) # and File.exist?(eval(luxrender_path))
     end #END luxrender_path_valid?
   
 	##
@@ -649,7 +649,7 @@ module SU2LUX
 		#puts export_path
 		if (ENV['OS'] =~ /windows/i)
 			#command_line = "start \"max\" \/#{lrs.priority} \"#{lrs.export_luxrender_path}\" \"#{export_path}\""
-			command_line = "start \"su2lx\" \"#{lrs.export_luxrender_path}\" -d \"#{export_dir}\" \"#{export_file}\""#nigec fix for export
+			command_line = "start \"su2lx\" \"#{lrs.export_luxrender_path}\" -d \"#{export_dir}/\" -f \"#{export_file}\""#nigec fix for export
 			puts command_line
 			system(command_line)
         else

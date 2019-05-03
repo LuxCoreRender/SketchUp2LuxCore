@@ -505,10 +505,10 @@ class LuxrenderMaterialEditor
 			model_name =SU2LUX.sanitize_path(Sketchup.active_model.title)
 			@time_out = @lrs.preview_time.to_f + 5
 			@retry_interval = 0.5
-			@luxconsole_options = " console -d "
-			pipe = IO.popen("python " +"\"" + luxconsole_path + "\"" + @luxconsole_options + "\"" + preview_path + "/\" \""+model_name + " _" + active_material_name + ".lxs" + "\"" + " -D \"film.outputs.0.filename\"" +" \""+ model_name + "_" + active_material_name + ".png" +"\"","r") # start rendering
-            puts ("python " +"\"" + luxconsole_path + "\"" + @luxconsole_options + "\"" + preview_path + "/\" \""+ model_name + " _" + active_material_name + ".lxs" + "\"" + " -D \"film.outputs.0.filename\"" +" \""+ model_name + "_" + active_material_name + ".png" +"\"")
-			
+			@luxconsole_options = " -d "
+			pipe = IO.popen( "\"" + luxconsole_path + "\"" + @luxconsole_options + "\"" + preview_path + "/\" -f \""+model_name + " _" + active_material_name + ".lxs" + "\"" + " -D \""+ model_name + "_" + active_material_name + ".png" +"\"","r") # start rendering
+            puts ("\"" + luxconsole_path + "\"" + @luxconsole_options + "\"" + preview_path + "/\" -f \""+ model_name + " _" + active_material_name + ".lxs" + "\"" + " -D \""+ model_name + "_" + active_material_name + ".png" +"\"")
+			#python.exe c:/Users/nige/Desktop/LuxStudio/lusuviewer.py -d "C:/Users/nige/AppData/Roaming/LuxRender/" -f "chapel _BlueGlass.lxs" -D "film.outputs.0.filename = \"chapel_BlueGlass.png\""
 			# wait for rendering to get ready, then update image
 			@times_waited = 0.0
 			@d = UI.start_timer(@lrs.preview_time.to_f + 1, false){ 		# sets timer one second longer than rendering time
